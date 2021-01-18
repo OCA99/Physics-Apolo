@@ -3,7 +3,7 @@
 
 #include "Module.h"
 
-#include "Point.h"
+#include "Vector2.h"
 
 #include "SDL/include/SDL.h"
 

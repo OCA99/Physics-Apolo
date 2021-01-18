@@ -49,13 +49,13 @@
     <ClInclude Include="Source\Queue.h">
       <Filter>Utils</Filter>
     </ClInclude>
-    <ClInclude Include="Vector2.h">
+    <ClInclude Include="Source\Vector2.h">
       <Filter>TAO</Filter>
     </ClInclude>
-    <ClInclude Include="Polygon.h">
+    <ClInclude Include="Source\Rect.h">
       <Filter>TAO</Filter>
     </ClInclude>
-    <ClInclude Include="Rect.h">
+    <ClInclude Include="Source\Polygon.h">
       <Filter>TAO</Filter>
     </ClInclude>
   </ItemGroup>

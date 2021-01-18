@@ -1,8 +1,8 @@
 #pragma once
 
-#include "Source/DynArray.h"
+#include "DynArray.h"
 #include "Vector2.h"
-#include "Source/Defs.h"
+#include "Defs.h"
 #include "Rect.h"
 
 #include <math.h>
@@ -100,7 +100,7 @@ public:
 		ComputeCentroid();
 	}
 
-	bool ComputeCentroid()
+	void ComputeCentroid()
 	{
 		if (centroid == nullptr)
 		{
@@ -122,7 +122,7 @@ public:
 	}
 
 	DynArray<Vec2f>* vertices = nullptr;
-private:
 	Rectf* AABB = nullptr;
 	Vec2f* centroid = nullptr;
+private:
 };

@@ -1,7 +1,7 @@
 #ifndef __VECTOR2_H__
 #define __VECTOR2_H__
 
-#include "Source/Defs.h"
+#include "Defs.h"
 
 #include <math.h>
 
@@ -38,7 +38,7 @@ public:
 	// Math ------------------------------------------------
 	Vector2 operator -(const Vector2& v) const
 	{
-		p2Vector2 r;
+		Vector2 r;
 
 		r.x = x - v.x;
 		r.y = y - v.y;
@@ -48,7 +48,7 @@ public:
 
 	Vector2 operator + (const Vector2& v) const
 	{
-		p2Vector2 r;
+		Vector2 r;
 
 		r.x = x + v.x;
 		r.y = y + v.y;
@@ -70,6 +70,16 @@ public:
 		y += v.y;
 
 		return(*this);
+	}
+
+	Vector2 operator * (const float k) const
+	{
+		Vector2 r;
+
+		r.x = x * k;
+		r.y = y * k;
+
+		return(r);
 	}
 
 	const Vector2& operator *=(const float k)
@@ -113,7 +123,7 @@ public:
 			return false;
 		}
 		{
-			result = a * (1 - t) + t * b;
+			result = a * (1 - t) + b * t;
 			return true;
 		}
 	}
