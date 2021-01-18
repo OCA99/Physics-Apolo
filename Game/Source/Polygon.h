@@ -57,12 +57,40 @@ public:
 		point.y = 0;
 		intersections = 0;
 
-		for (int i = 0; i < vertices->Count() - 1; i++)
+		for (int i = 0; i < vertices->Count(); i++)
 		{
-			for (int j = 0; j < other->vertices->Count() - 1; j++)
+			for (int j = 0; j < other->vertices->Count(); j++)
 			{
 				Vec2f result;
-				if (Vec2f::EdgeIntersection(*vertices->At(i), *vertices->At(i + 1), *other->vertices->At(i), *other->vertices->At(i + 1), result))
+
+				Vec2f a;
+				Vec2f b;
+				Vec2f c;
+				Vec2f d;
+
+				if (i == vertices->Count() - 1)
+				{
+					a = *vertices->At(i);
+					b = *vertices->At(0);
+				}
+				else
+				{
+					a = *vertices->At(i);
+					b = *vertices->At(i + 1);
+				}
+
+				if (j == other->vertices->Count() - 1)
+				{
+					c = *other->vertices->At(j);
+					d = *other->vertices->At(0);
+				}
+				else
+				{
+					c = *other->vertices->At(j);
+					d = *other->vertices->At(j + 1);
+				}
+
+				if (Vec2f::EdgeIntersection(a, b, c, d, result))
 				{
 					point += result;
 					intersections++;
@@ -71,6 +99,8 @@ public:
 		}
 
 		point /= intersections;
+
+		return (intersections) ? true : false;
 	}
 
 	void Translate(Vec2f delta)

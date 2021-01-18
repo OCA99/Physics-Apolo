@@ -118,6 +118,8 @@ public:
 		float det = Determinant(b - a, c - d);
 		float t = Determinant(c - a, c - d) / det;
 		float u = Determinant(b - a, c - a) / det;
+		if (det == 0)
+			return false;
 		if (t < 0 || u < 0 || t > 1 || u > 1)
 		{
 			return false;
