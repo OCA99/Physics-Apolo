@@ -58,6 +58,15 @@
     <ClInclude Include="Source\Polygon.h">
       <Filter>TAO</Filter>
     </ClInclude>
+    <ClInclude Include="Source\World.h">
+      <Filter>TAO</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Shape.h">
+      <Filter>TAO</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Circle.h">
+      <Filter>TAO</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="External">

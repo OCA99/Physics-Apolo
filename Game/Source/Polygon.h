@@ -4,16 +4,19 @@
 #include "Vector2.h"
 #include "Defs.h"
 #include "Rect.h"
+#include "Shape.h"
 
 #include <math.h>
 #include <limits.h>
 
-class Polygon
+class Polygon : public Shape
 {
 public:
-	Polygon(DynArray<Vec2f>* _vertices)
+	Polygon(DynArray<Vec2f>* _vertices) : Shape()
 	{
 		vertices = _vertices;
+		ComputeAABB();
+		ComputeCentroid();
 	}
 
 	~Polygon()
@@ -103,6 +106,43 @@ public:
 		return (intersections) ? true : false;
 	}
 
+	bool Intersects(Circle* other, Vec2f& point)
+	{
+		return false;
+	}
+
+	Polygon* ConvexHull()
+	{
+		DynArray<Vec2f>* hull = new DynArray<Vec2f>();
+
+		int n = vertices->Count();
+
+		int l = 0;
+		for (int i = 1; i < n; i++)
+		{
+			if (vertices->At(i)->x < vertices->At(l)->x)
+			{
+				l = i;
+			}
+		}
+
+		int p = l;
+		int q;
+		
+		do {
+			hull->PushBack(*vertices->At(p));
+			q = (p + 1) % n;
+			for (int i = 0; i < n; i++)
+			{
+				if (Vec2f::Orientation(*vertices->At(p), *vertices->At(i), *vertices->At(q)) == 2)
+					q = i;
+			}
+			p = q;
+		} while (p != l);
+
+		return new Polygon(hull);
+	}
+
 	void Translate(Vec2f delta)
 	{
 		for (int i = 0; i < vertices->Count(); i++)
@@ -152,7 +192,6 @@ public:
 	}
 
 	DynArray<Vec2f>* vertices = nullptr;
-	Rectf* AABB = nullptr;
 	Vec2f* centroid = nullptr;
 private:
 };

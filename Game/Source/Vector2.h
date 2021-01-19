@@ -113,6 +113,19 @@ public:
 		return a.x * b.y - a.y * b.x;
 	}
 
+	static int Orientation(Vector2 p, Vector2 q, Vector2 r)
+	{
+		int val = (q.y - p.y) * (r.x - q.x) - (q.x - p.x) * (r.y - q.y);
+		if (val == 0)
+			return 0;
+		return (val > 0) ? 1 : 2;
+	}
+
+	float Angle(Vector2 other)
+	{
+		return atan2(other.y - y, other.x - x);
+	}
+
 	static bool EdgeIntersection(Vector2 a, Vector2 b, Vector2 c, Vector2 d, Vector2& result)
 	{
 		float det = Determinant(b - a, c - d);

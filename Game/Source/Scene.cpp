@@ -33,6 +33,33 @@ bool Scene::Awake()
 // Called before the first frame
 bool Scene::Start()
 {
+	DynArray<Vec2f> a;
+	DynArray<Vec2f> b;
+
+	a.PushBack(Vec2f(0, 3));
+	a.PushBack(Vec2f(2, 2));
+	a.PushBack(Vec2f(1, 1));
+	a.PushBack(Vec2f(2, 1));
+	a.PushBack(Vec2f(3, 0));
+	a.PushBack(Vec2f(0, 0));
+	a.PushBack(Vec2f(3, 3));
+
+	b.PushBack(Vec2f(2, 0));
+	b.PushBack(Vec2f(3, 0));
+	b.PushBack(Vec2f(3, 1));
+	b.PushBack(Vec2f(2, 1));
+
+	Polygon* ap = new Polygon(&a);
+	Polygon* bp = new Polygon(&b);
+
+	Polygon* ch = ap->ConvexHull();
+
+	int n = ch->vertices->Count();
+	for (int i = 0; i < n; i++)
+	{
+		LOG("%f, %f\n", ch->vertices->At(i)->x, ch->vertices->At(i)->y);
+	}
+
 	return true;
 }
 
