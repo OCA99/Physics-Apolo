@@ -17,6 +17,8 @@ public:
 		vertices = _vertices;
 		ComputeAABB();
 		ComputeCentroid();
+
+		type = Type::POLYGON;
 	}
 
 	~Polygon()
@@ -54,18 +56,12 @@ public:
 		}
 	}
 
-	bool Intersects(Polygon* other, Vec2f& point, int& intersections)
+	bool Intersects(Polygon* other, DynArray<Vec2f>& points)
 	{
-		point.x = 0;
-		point.y = 0;
-		intersections = 0;
-
 		for (int i = 0; i < vertices->Count(); i++)
 		{
 			for (int j = 0; j < other->vertices->Count(); j++)
 			{
-				Vec2f result;
-
 				Vec2f a;
 				Vec2f b;
 				Vec2f c;
@@ -93,17 +89,16 @@ public:
 					d = *other->vertices->At(j + 1);
 				}
 
+				Vec2f result;
+
 				if (Vec2f::EdgeIntersection(a, b, c, d, result))
 				{
-					point += result;
-					intersections++;
+					points.PushBack(result);
 				}
 			}
 		}
 
-		point /= intersections;
-
-		return (intersections) ? true : false;
+		return (points.Count()) ? true : false;
 	}
 
 	bool Intersects(Circle* other, Vec2f& point)

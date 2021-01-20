@@ -93,6 +93,12 @@ private:
 
 	uint frames;
 	float dt;
+
+	const int FPS = 60;
+	const int frameDelay = 1000 / FPS;
+
+	long long int frameStart;
+	int frameTime = 16;
 };
 
 extern App* app;

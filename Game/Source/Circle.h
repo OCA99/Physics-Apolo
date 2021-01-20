@@ -2,6 +2,7 @@
 
 #include "Shape.h"
 #include "Vector2.h"
+#include "DynArray.h"
 #include "Rect.h"
 #include <math.h>
 
@@ -12,6 +13,8 @@ public:
 	{
 		center = _center;
 		radius = _radius;
+		ComputeAABB();
+		type = Type::CIRCLE;
 	}
 
 	~Circle()
@@ -30,6 +33,7 @@ public:
 	void Translate(Vec2f delta)
 	{
 		center += delta;
+		ComputeAABB();
 	}
 
 	void RotateAround(float angle, Vec2f pivot)
@@ -39,9 +43,11 @@ public:
 
 		center.x = (cos(angle) * x - sin(angle) * y) + pivot.x;
 		center.y = (sin(angle) * x + cos(angle) * y) + pivot.y;
+		ComputeAABB();
+
 	}
 
-	bool Intersects(Polygon* other, Vec2f& point, int& intersections)
+	bool Intersects(Polygon* other, DynArray<Vec2f>& points)
 	{
 		return false;
 	}

@@ -67,6 +67,9 @@
     <ClInclude Include="Source\Circle.h">
       <Filter>TAO</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Rigidbody.h">
+      <Filter>TAO</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="External">

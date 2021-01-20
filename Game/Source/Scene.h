@@ -2,6 +2,7 @@
 #define __SCENE_H__
 
 #include "Module.h"
+#include "World.h"
 
 struct SDL_Texture;
 
@@ -31,6 +32,8 @@ public:
 
 	// Called before quitting
 	bool CleanUp();
+
+	World* world;
 
 private:
 	SDL_Texture* img;

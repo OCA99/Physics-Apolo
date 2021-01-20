@@ -106,6 +106,10 @@ bool App::Start()
 bool App::Update()
 {
 	bool ret = true;
+
+	dt = frameTime * frameDelay;
+	frameStart = SDL_GetTicks();
+
 	PrepareUpdate();
 
 	if(input->GetWindowEvent(WE_QUIT) == true)
@@ -121,6 +125,12 @@ bool App::Update()
 		ret = PostUpdate();
 
 	FinishUpdate();
+
+	frameTime = SDL_GetTicks() - frameStart;
+
+	if (frameDelay > frameTime)
+		SDL_Delay(frameDelay - frameTime);
+
 	return ret;
 }
 

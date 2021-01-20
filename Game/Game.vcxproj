@@ -107,6 +107,7 @@
     <ClInclude Include="Source\Polygon.h" />
     <ClInclude Include="Source\Queue.h" />
     <ClInclude Include="Source\Rect.h" />
+    <ClInclude Include="Source\Rigidbody.h" />
     <ClInclude Include="Source\Scene.h" />
     <ClInclude Include="Source\Audio.h" />
     <ClInclude Include="Source\Input.h" />

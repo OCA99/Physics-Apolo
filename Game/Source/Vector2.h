@@ -82,6 +82,16 @@ public:
 		return(r);
 	}
 
+	Vector2 operator / (const float k) const
+	{
+		Vector2 r;
+
+		r.x = x / k;
+		r.y = y / k;
+
+		return(r);
+	}
+
 	const Vector2& operator *=(const float k)
 	{
 		x *= k;
@@ -124,6 +134,11 @@ public:
 	float Angle(Vector2 other)
 	{
 		return atan2(other.y - y, other.x - x);
+	}
+
+	float Length()
+	{
+		return sqrt(x * x + y * y);
 	}
 
 	static bool EdgeIntersection(Vector2 a, Vector2 b, Vector2 c, Vector2 d, Vector2& result)
