@@ -37,6 +37,7 @@ public:
 
 private:
 	SDL_Texture* img;
+	Rigidbody* r;
 };
 
 #endif // __SCENE_H__

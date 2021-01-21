@@ -30,12 +30,15 @@ public:
 	void Update(float dt)
 	{
 		Vec2f acceleration = forces / mass;
-		velocity = acceleration * dt;
-		position += velocity;
+		velocity += acceleration;
+		position += velocity * dt;
 		float angularAcceleration = torque / momentOfInertia;
-		angularVelocity = angularAcceleration * dt;
-		angle = angularVelocity;
+		angularVelocity += angularAcceleration;
+		angle = angularVelocity * dt;
 		UpdateFixtures();
+		forces.x = 0.0f;
+		forces.y = 0.0f;
+		torque = 0.0f;
 	}
 
 	void UpdateFixtures()
@@ -49,20 +52,20 @@ public:
 		}
 	}
 
-	void AddForce(Vec2f r, Vec2f f)
+	void AddForce(Vec2f f)
 	{
 		forces += f;
 	}
 
 	void AddTorque(Vec2f r, Vec2f f)
 	{
-		float a = centerOfMass.Angle(r);
-		torque = r.Length() * f.Length() * sin(a);
+		Vec2f a = r - centerOfMass;
+		torque = a.x * f.y - a.y * f.x;
 	}
 
 	void CalculateCenterOfMass()
 	{
-		centerOfMass = Vec2f(AABB->max.x - (AABB->max.x - AABB->min.x / 2), AABB->max.y - (AABB->max.y - AABB->min.y / 2));
+		centerOfMass = Vec2f(AABB->max.x - ((AABB->max.x - AABB->min.x) / 2), AABB->max.y - ((AABB->max.y - AABB->min.y) / 2));
 	}
 
 	void CalculateMass()
@@ -80,16 +83,16 @@ public:
 
 	void CalculateAABB()
 	{
-		DynArray<Rectf> l;
+		DynArray<Rectf*>* l = new DynArray<Rectf*>();
 		for (int i = 0; i < fixtures.Count(); i++)
 		{
-			l.PushBack(*(*fixtures.At(i))->AABB);
+			l->PushBack((*fixtures.At(i))->AABB);
 		}
 
-		delete AABB;
+		if (AABB != nullptr)
+			delete AABB;
 
 		AABB = Rect<float>::JoinRectangles(l);
-		LOG("HELLO");
 	}
 
 	void AddFixture(Shape* s)
@@ -133,7 +136,7 @@ public:
 	float angularVelocity = 0;
 	Vec2f centerOfMass;
 
-	Rectf* AABB;
+	Rectf* AABB = nullptr;
 
 	DynArray<Shape*> fixtures;
 

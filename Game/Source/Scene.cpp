@@ -37,22 +37,22 @@ bool Scene::Awake()
 // Called before the first frame
 bool Scene::Start()
 {
-	DynArray<Vec2f> a;
-	DynArray<Vec2f> b;
+	DynArray<Vec2f>* a = new DynArray<Vec2f>();
+	DynArray<Vec2f>* b = new DynArray<Vec2f>();
 
-	a.PushBack(Vec2f(0, 0));
-	a.PushBack(Vec2f(1, 0));
-	a.PushBack(Vec2f(1, 1));
-	a.PushBack(Vec2f(0, 1));
+	a->PushBack(Vec2f(0, 0) * 100);
+	a->PushBack(Vec2f(1, 0) * 100);
+	a->PushBack(Vec2f(1, 1) * 100);
+	a->PushBack(Vec2f(0, 1) * 100);
 
-	b.PushBack(Vec2f(0, 1));
-	b.PushBack(Vec2f(1, 2));
-	b.PushBack(Vec2f(1, 1));
+	b->PushBack(Vec2f(0, 1) * 100);
+	b->PushBack(Vec2f(1, 2) * 100);
+	b->PushBack(Vec2f(1, 1) * 100);
 
-	Polygon* ap = new Polygon(&a);
-	Polygon* bp = new Polygon(&b);
+	Polygon* ap = new Polygon(a);
+	Polygon* bp = new Polygon(b);
 
-	Rigidbody* r = new Rigidbody(Vec2f(10.0f, 10.0f));
+	r = new Rigidbody(Vec2f(200.0f, 200.0f));
 	r->AddFixture(ap);
 	r->AddFixture(bp);
 	world->AddBody(r);
@@ -69,6 +69,7 @@ bool Scene::PreUpdate()
 // Called each loop iteration
 bool Scene::Update(float dt)
 {
+	r->AddTorque(Vec2f(50.0f, 50.0f), Vec2f(0.0f, 500.0f));
 	world->Step(dt);
 	return true;
 }
