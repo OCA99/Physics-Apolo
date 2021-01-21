@@ -70,6 +70,12 @@
     <ClInclude Include="Source\Rigidbody.h">
       <Filter>TAO</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Pair.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Collision.h">
+      <Filter>TAO</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="External">

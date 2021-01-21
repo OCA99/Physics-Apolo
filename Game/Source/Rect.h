@@ -28,7 +28,7 @@ struct Rect {
 
 	}
 
-	bool Intersects(Rect<TYPE>& other)
+	bool Intersects(Rect<TYPE>* other)
 	{
 		float d1x = other->min.x - max.x;
 		float d1y = other->min.y - max.y;

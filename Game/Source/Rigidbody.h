@@ -54,9 +54,15 @@ public:
 		}
 	}
 
+	void AddForceOnPoint(Vec2f r, Vec2f f)
+	{
+		AddForce(f);
+		AddTorque(r, f);
+	}
+
 	void AddForce(Vec2f f)
 	{
-		forces += f;
+		forces += f * scale;
 	}
 
 	void AddTorque(Vec2f r, Vec2f f)
@@ -127,6 +133,8 @@ public:
 				}
 			}
 		}
+
+		return (points.Count()) ? true : false;
 	}
 
 	float mass = 1;

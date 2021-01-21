@@ -104,6 +104,8 @@
     <ClCompile Include="Source\Textures.cpp" />
     <ClCompile Include="Source\Window.cpp" />
     <ClInclude Include="Source\Circle.h" />
+    <ClInclude Include="Source\Collision.h" />
+    <ClInclude Include="Source\Pair.h" />
     <ClInclude Include="Source\Polygon.h" />
     <ClInclude Include="Source\Queue.h" />
     <ClInclude Include="Source\Rect.h" />
