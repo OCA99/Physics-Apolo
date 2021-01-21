@@ -13,13 +13,15 @@
 class Rigidbody
 {
 public:
-	Rigidbody(Vec2f _position)
+	Rigidbody(Vec2f _position, float _density, int _scale)
 	{
 		position = _position;
 		velocity = Vec2f(0.0f, 0.0f);
 		forces = Vec2f(0.0f, 0.0f);
 		centerOfMass = _position;
 		AABB = new Rectf();
+		density = _density;
+		scale = _scale;
 	}
 
 	~Rigidbody()
@@ -29,15 +31,12 @@ public:
 
 	void Update(float dt)
 	{
-		LOG("%f\n", dt);
-
 		Vec2f acceleration = forces / mass;
 		velocity += acceleration * dt;
 		position += velocity;
 		float angularAcceleration = torque / momentOfInertia;
 		angularVelocity += angularAcceleration * dt;
 		angle += angularVelocity;
-		LOG("%f\n", angle);
 		UpdateFixtures();
 		forces.x = 0.0f;
 		forces.y = 0.0f;
@@ -50,8 +49,8 @@ public:
 		{
 			(*fixtures.At(i))->Translate(velocity);
 			centerOfMass += velocity;
-			CalculateAABB();
 			(*fixtures.At(i))->RotateAround(angularVelocity, centerOfMass);
+			CalculateAABB();
 		}
 	}
 
@@ -62,7 +61,8 @@ public:
 
 	void AddTorque(Vec2f r, Vec2f f)
 	{
-		Vec2f a = r - centerOfMass;
+		Vec2f a = (r - (centerOfMass - position));
+		a /= scale;
 		torque = a.x * f.y - a.y * f.x;
 	}
 
@@ -73,15 +73,15 @@ public:
 
 	void CalculateMass()
 	{
-		mass = (AABB->max.x - AABB->min.x) * (AABB->max.y - AABB->min.y);
+		mass = (((AABB->max.x - AABB->min.x) / scale) * ((AABB->max.y - AABB->min.y) / scale) * density);
 	}
 
 	void CalculateMomentOfInertia()
 	{
-		float h = (AABB->max.y - AABB->min.y);
-		float w = (AABB->max.x - AABB->min.x);
+		float h = (AABB->max.y - AABB->min.y) / scale;
+		float w = (AABB->max.x - AABB->min.x) / scale;
 
-		momentOfInertia = (mass * (h * h + w * w)) / 12;
+		momentOfInertia = (density * (h * h + w * w)) / 12;
 	}
 
 	void CalculateAABB()
@@ -130,6 +130,7 @@ public:
 	}
 
 	float mass = 1;
+	float density = 1;
 	float momentOfInertia = 1;
 	Vec2f forces;
 	float torque;
@@ -144,5 +145,5 @@ public:
 	DynArray<Shape*> fixtures;
 
 private:
-
+	int scale = 1;
 };

@@ -6,9 +6,9 @@
 class World
 {
 public:
-	World()
+	World(int _scale)
 	{
-
+		scale = _scale;
 	}
 
 	~World()
@@ -30,5 +30,6 @@ public:
 	}
 
 	DynArray<Rigidbody*> bodies;
+	int scale = 1;
 private:
 };
