@@ -29,12 +29,15 @@ public:
 
 	void Update(float dt)
 	{
+		LOG("%f\n", dt);
+
 		Vec2f acceleration = forces / mass;
-		velocity += acceleration;
-		position += velocity * dt;
+		velocity += acceleration * dt;
+		position += velocity;
 		float angularAcceleration = torque / momentOfInertia;
-		angularVelocity += angularAcceleration;
-		angle = angularVelocity * dt;
+		angularVelocity += angularAcceleration * dt;
+		angle += angularVelocity;
+		LOG("%f\n", angle);
 		UpdateFixtures();
 		forces.x = 0.0f;
 		forces.y = 0.0f;
@@ -46,8 +49,8 @@ public:
 		for (int i = 0; i < fixtures.Count(); i++)
 		{
 			(*fixtures.At(i))->Translate(velocity);
+			centerOfMass += velocity;
 			CalculateAABB();
-			CalculateCenterOfMass();
 			(*fixtures.At(i))->RotateAround(angularVelocity, centerOfMass);
 		}
 	}

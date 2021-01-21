@@ -69,7 +69,7 @@ bool Scene::PreUpdate()
 // Called each loop iteration
 bool Scene::Update(float dt)
 {
-	r->AddTorque(Vec2f(50.0f, 50.0f), Vec2f(0.0f, 500.0f));
+	r->angularVelocity = 15.0f * dt;
 	world->Step(dt);
 	return true;
 }
@@ -102,7 +102,11 @@ bool Scene::PostUpdate()
 				}
 			}
 		}
+
+		app->render->DrawRectangle(SDL_Rect({ (int)r->AABB->min.x, (int)r->AABB->min.y, (int)r->AABB->max.x - (int)r->AABB->min.x, (int)r->AABB->max.y - (int)r->AABB->min.y }), 0, 255, 0, 255, false);
+		app->render->DrawRectangle(SDL_Rect({ (int)r->centerOfMass.x - 10, (int)r->centerOfMass.y - 10, 20, 20 }), 0, 255, 0, 255, false);
 	}
+
 
 	return ret;
 }
