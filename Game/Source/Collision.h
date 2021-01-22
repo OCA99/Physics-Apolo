@@ -11,8 +11,9 @@ public:
 
 	~Collision()
 	{
-		delete points;
+		if (points != nullptr)
+			delete points;
 	}
 
-	DynArray<Vec2f>* points;
+	DynArray<Vec2f>* points = nullptr;
 };

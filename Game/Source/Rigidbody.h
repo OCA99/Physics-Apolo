@@ -41,6 +41,27 @@ public:
 		forces.x = 0.0f;
 		forces.y = 0.0f;
 		torque = 0.0f;
+
+	}
+
+	void Translate(Vec2f dp)
+	{
+		for (int i = 0; i < fixtures.Count(); i++)
+		{
+			(*fixtures.At(i))->Translate(dp);
+			CalculateAABB();
+		}
+
+		centerOfMass += dp;
+	}
+
+	void Rotate(float dr)
+	{
+		for (int i = 0; i < fixtures.Count(); i++)
+		{
+			(*fixtures.At(i))->RotateAround(dr, centerOfMass);
+			CalculateAABB();
+		}
 	}
 
 	void UpdateFixtures()
@@ -48,10 +69,11 @@ public:
 		for (int i = 0; i < fixtures.Count(); i++)
 		{
 			(*fixtures.At(i))->Translate(velocity);
-			centerOfMass += velocity;
 			(*fixtures.At(i))->RotateAround(angularVelocity, centerOfMass);
 			CalculateAABB();
 		}
+
+		centerOfMass += velocity;
 	}
 
 	void AddForceOnPoint(Vec2f r, Vec2f f)
@@ -87,7 +109,7 @@ public:
 		float h = (AABB->max.y - AABB->min.y) / scale;
 		float w = (AABB->max.x - AABB->min.x) / scale;
 
-		momentOfInertia = (density * (h * h + w * w)) / 12;
+		momentOfInertia = (mass * (h * h + w * w)) / 12;
 	}
 
 	void CalculateAABB()
@@ -102,6 +124,8 @@ public:
 			delete AABB;
 
 		AABB = Rect<float>::JoinRectangles(l);
+
+		CalculateRadius();
 	}
 
 	void AddFixture(Shape* s)
@@ -137,6 +161,32 @@ public:
 		return (points.Count()) ? true : false;
 	}
 
+	void CalculateRadius()
+	{
+		Vec2f e = Vec2f(AABB->max.x, AABB->max.y / 2);
+		Vec2f w = Vec2f(-AABB->max.x, AABB->max.y / 2);
+		Vec2f n = Vec2f(AABB->max.x / 2, AABB->max.y);
+		Vec2f s = Vec2f(AABB->max.x / 2, -AABB->max.y);
+
+		radius = (e - centerOfMass).Length();
+
+		if ((w - centerOfMass).Length() > radius)
+			radius = (w - centerOfMass).Length();
+
+		if ((n - centerOfMass).Length() > radius)
+			radius = (n - centerOfMass).Length();
+
+		if ((s - centerOfMass).Length() > radius)
+			radius = (s - centerOfMass).Length();
+	}
+
+	float getMoment(Vec2f p)
+	{
+		float w = abs(angularVelocity) * momentOfInertia;
+		float m = mass * velocity.Length();
+		return w + m;
+	}
+
 	float mass = 1;
 	float density = 1;
 	float momentOfInertia = 1;
@@ -147,6 +197,7 @@ public:
 	float angle = 0;
 	float angularVelocity = 0;
 	Vec2f centerOfMass;
+	float radius = 1;
 
 	Rectf* AABB = nullptr;
 

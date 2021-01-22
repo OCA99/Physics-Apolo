@@ -107,7 +107,7 @@ bool App::Update()
 {
 	bool ret = true;
 
-	dt = frameTime / 1000.0f;
+	dt = (frameTime / 1000.0f) * timeScale;
 	frameStart = SDL_GetTicks();
 
 	PrepareUpdate();

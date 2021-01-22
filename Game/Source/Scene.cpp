@@ -65,11 +65,11 @@ bool Scene::Start()
 
 	Polygon* cp = new Polygon(c);
 
-	r2 = new Rigidbody(Vec2f(8.0f, 2.0f) * world->scale, 1, world->scale);
+	r2 = new Rigidbody(Vec2f(4.0f, 2.0f) * world->scale, 1, world->scale);
 	r2->AddFixture(cp);
 	world->AddBody(r2);
 
-	r->AddTorque(Vec2f(0, 0) * world->scale, Vec2f(0, 1));
+	//r->AddTorque(Vec2f(0, 0) * world->scale, Vec2f(0, 1));
 	r2->AddForceOnPoint(Vec2f(1, 0.5f) * world->scale, Vec2f(-1, 0));
 
 	return true;

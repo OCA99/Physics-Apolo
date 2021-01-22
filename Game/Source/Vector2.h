@@ -2,6 +2,8 @@
 #define __VECTOR2_H__
 
 #include "Defs.h"
+#include "Line.h"
+#include "DynArray.h"
 
 #include <math.h>
 
@@ -176,6 +178,58 @@ public:
 		y = -y;
 
 		return(*this);
+	}
+
+	float dot(const Vector2& v)
+	{
+		return v.x * x + v.y * y;
+	}
+
+	static Vector2<TYPE> fitPoints(const DynArray<Vector2<TYPE>>* points)
+	{
+		Line l;
+
+		int n = points->Count();
+		if (n < 2)
+			return Vector2<TYPE>(0, 0);
+
+		float sumX = 0, sumY = 0, sumXY = 0, sumX2 = 0;
+		for (int i = 0; i < n; i++)
+		{
+			Vector2<TYPE> p = *points->At(i);
+			sumX += p.x;
+			sumY += p.y;
+			sumXY += p.x * p.y;
+			sumX2 += p.x * p.x;
+		}
+
+		float xMean = sumX / n;
+		float yMean = sumY / n;
+		float denominator = sumX2 - sumX * xMean;
+
+		if (abs(denominator) < 1e-4)
+		{
+			return Vector2<TYPE>(0, 1);
+		}
+
+		l.slope = (sumXY - sumX * yMean) / denominator;
+		l.y = yMean - l.slope * xMean;
+
+		Vector2 v = Vector2<TYPE>(1, l.evaluate(1)) - Vector2<TYPE>(0, l.evaluate(0));
+
+		return v / v.Length();
+	}
+
+	static Vector2<TYPE> average(const DynArray<Vector2<TYPE>>* points)
+	{
+		Vector2<TYPE> avg = Vector2<TYPE>(0, 0);
+
+		for (int i = 0; i < points->Count(); i++)
+		{
+			avg += *points->At(i);
+		}
+
+		return avg / points->Count();
 	}
 
 	// Distances ---------------------------------------------

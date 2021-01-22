@@ -76,6 +76,9 @@
     <ClInclude Include="Source\Collision.h">
       <Filter>TAO</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Line.h">
+      <Filter>TAO</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="External">
