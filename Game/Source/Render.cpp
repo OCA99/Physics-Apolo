@@ -79,10 +79,10 @@ bool Render::Update(float dt)
 	camera.y = -(app->player->r->centerOfMass.y  - camera.h / 2);
 
 	if (camera.x >= 500) camera.x = 500;
-	if (camera.x <= -4600) camera.x = -4600;
+	if (camera.x <= -11000) camera.x = -11000;
 
 	if (camera.y >= 500) camera.y = 500;
-	if (camera.y <= -5100) camera.y = -5100;
+	if (camera.y <= -11500) camera.y = -11500;
 
 	return true;
 }

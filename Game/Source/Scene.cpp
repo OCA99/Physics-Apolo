@@ -41,12 +41,12 @@ bool Scene::Start()
 {
 	bg = app->tex->Load("Assets/Textures/backgroundBig.png");
 
-	earth = new Planet(Vec2f(25.0f, 25.0f), 9, 50, 800, "Assets/Textures/Planets/Terran.png");
-	earth->p->stat = true;
-	moon = new Planet(Vec2f(50.0f, 25.0f), 3, 50, 10, "Assets/Textures/Planets/Baren.png");
+	//earth = new Planet(Vec2f(25.0f, 25.0f), 9, 50, 800, "Assets/Textures/Planets/Terran.png");
+	//earth->p->stat = true;
+	//moon = new Planet(Vec2f(50.0f, 25.0f), 3, 50, 10, "Assets/Textures/Planets/Baren.png");
 
-	float iny = sqrt(GVAR * earth->p->mass / (earth->p->centerOfMass.DistanceTo(moon->p->centerOfMass)/world->scale));
-	moon->p->velocity = Vec2f(0, iny);
+	//float iny = sqrt(GVAR * earth->p->mass / (earth->p->centerOfMass.DistanceTo(moon->p->centerOfMass)/world->scale));
+	//moon->p->velocity = Vec2f(0, iny);
 
 
 	return true;
@@ -70,7 +70,7 @@ bool Scene::PostUpdate()
 {
 	bool ret = true;
 	//Draw BackGround
-	SDL_Rect rec = { 0,0,640,640 };
+	SDL_Rect rec = { 0,0,1280,1280 };
 	app->render->DrawTexture(bg, -500, -500, &rec, 10);
 
 	if(app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
@@ -102,7 +102,7 @@ bool Scene::PostUpdate()
 
 	}
 
-	app->render->DrawLine(app->player->r->centerOfMass.x, app->player->r->centerOfMass.y, moon->p->centerOfMass.x, moon->p->centerOfMass.y, 0, 0, 255, 255);
+	//app->render->DrawLine(app->player->r->centerOfMass.x, app->player->r->centerOfMass.y, moon->p->centerOfMass.x, moon->p->centerOfMass.y, 0, 0, 255, 255);
 
 	return ret;
 }
