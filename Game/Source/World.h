@@ -27,11 +27,11 @@ public:
 
 	void Step(float dt)
 	{
+		CalculateGravity();
 		UpdateBodies(dt);
 		DynArray<Collision*> collisions;
 		FindCollisions(collisions);
 		SolveCollisions(collisions, dt);
-		CalculateGravity();
 	}
 
 	DynArray<Rigidbody*> bodies;
@@ -57,10 +57,8 @@ private:
 	{
 		for (int i = 0; i < bodies.Count(); i++)
 		{
-			for (int j = i; j < bodies.Count(); j++)
+			for (int j = i + 1; j < bodies.Count(); j++)
 			{
-				if (i == j)
-					continue;
 
 				Rigidbody* a = *bodies.At(i);
 				Rigidbody* b = *bodies.At(j);
@@ -112,6 +110,31 @@ private:
 			an = an / an.Length();
 			bn = bn / bn.Length();
 
+			DynArray<Vec2f> tmp;
+
+			if (a->mass < b->mass)
+			{
+				Vec2f c = a->centerOfMass - b->centerOfMass;
+				c = c / c.Length();
+
+				while (a->Intersects(b, tmp))
+				{
+					a->Translate(c * a->velocity.Length());
+					tmp.Clear();
+				}
+			}
+			else
+			{
+				Vec2f c = b->centerOfMass - a->centerOfMass;
+				c = c / c.Length();
+
+				while (b->Intersects(a, tmp))
+				{
+					b->Translate(c * b->velocity.Length());
+					tmp.Clear();
+				}
+			}
+
 			/*Vec2f deltaB = b->centerOfMass - a->centerOfMass;
 
 			float dot = bn.x * deltaB.x + bn.y * deltaB.y;
@@ -141,53 +164,67 @@ private:
 			Vec2f cp = Vec2f::average(c->points);
 			/*app->render->DrawRectangle(SDL_Rect({ (int)cp.x - 5, (int)cp.y - 5, 10, 10 }), 255, 0, 0, 255, false, false);*/
 
-			DynArray<Vec2f> tmp;
+			//while (b->Intersects(a, tmp))
+			//{
+			//	if (b->velocity.IsZero())
+			//	{
+			//		break;
+			//	}
 
-			while (b->Intersects(a, tmp))
+			//	b->Translate(Vec2f(-b->velocity.x, -b->velocity.y));
+			//	
+			//	Vec2f d = (cp - (b->centerOfMass - b->position));
+			//	d /= scale;
+			//	int t = (d.x * bn.y - d.y * bn.x > 0) ? 1 : -1;
+
+			//	//b->Rotate(t * dt);
+			//	tmp.Clear();
+			//}
+
+			//tmp.Clear();
+			//while (a->Intersects(b, tmp))
+			//{
+
+			//	if (a->velocity.IsZero())
+			//	{
+			//		break;
+			//	}
+			//	a->Translate(Vec2f(-a->velocity.x, -a->velocity.y));
+
+			//	Vec2f d = (cp - (a->centerOfMass - a->position));
+			//	d /= scale;
+			//	int t = (d.x * an.y - d.y * an.x > 0) ? 1 : -1;
+
+			//	//a->Rotate(t * dt);
+
+			//	tmp.Clear();
+			//}
+
+			double momentA = a->getMoment(cp, b);
+			double momentB = b->getMoment(cp, a);
+
+			// RELATIVE MOMENT LUL
+			double sum = momentA + momentB;
+
+			double propA = momentA / sum;
+			double propB = momentB / sum;
+
+			//a->velocity = refA * propA;
+			//b->velocity = refB * propB;
+
+			float moment;
+
+			if (a->mass < b->mass)
 			{
-				if (b->velocity.IsZero())
-				{
-					break;
-				}
-
-				b->Translate(Vec2f(-b->velocity.x, -b->velocity.y));
-				
-				Vec2f d = (cp - (b->centerOfMass - b->position));
-				d /= scale;
-				int t = (d.x * bn.y - d.y * bn.x > 0) ? 1 : -1;
-
-				//b->Rotate(t * dt);
-				tmp.Clear();
+				moment = a->getMoment(cp);
+				a->AddForceOnPoint(cp, (an * moment));
+			}
+			else
+			{
+				moment = b->getMoment(cp);
+				b->AddForceOnPoint(cp, (bn * moment));
 			}
 
-			tmp.Clear();
-			while (a->Intersects(b, tmp))
-			{
-
-				if (a->velocity.IsZero())
-				{
-					break;
-				}
-				a->Translate(Vec2f(-a->velocity.x, -a->velocity.y));
-
-				Vec2f d = (cp - (a->centerOfMass - a->position));
-				d /= scale;
-				int t = (d.x * an.y - d.y * an.x > 0) ? 1 : -1;
-
-				//a->Rotate(t * dt);
-
-				tmp.Clear();
-			}
-
-			float momentA = a->getMoment(cp);
-			float momentB = b->getMoment(cp);
-			float sum = momentA + momentB;
-
-			float propA = momentA / sum;
-			float propB = momentB / sum;
-
-			//b->AddForceOnPoint(cp, bn * propA * sum);
-			//a->AddForceOnPoint(cp, an * propB * sum);
 		}
 	}
 
@@ -201,7 +238,7 @@ private:
 				Rigidbody* b = *bodies.At(j);
 				
 				float distance = a->centerOfMass.DistanceTo(b->centerOfMass)/scale;
-				float force = - GVAR * (a->mass * b->mass) / (distance * distance);
+				float force = - GVAR * (a->mass * b->mass) / ((distance * distance) * 10);
 
 				Vec2f ab = (a->centerOfMass - b->centerOfMass);
 				Vec2f ba = (b->centerOfMass - a->centerOfMass);
@@ -209,8 +246,11 @@ private:
 				ab = (ab / ab.Length())*force;
 				ba = (ba / ba.Length())*force;
 
-				a->AddForce(ab);
-				b->AddForce(ba);
+				if (distance > b->gravityMin && distance < b->gravityMax)
+					a->AddForce(ab);
+
+				if (distance > a->gravityMin && distance < a->gravityMax)
+					b->AddForce(ba);
 
 			}
 		}

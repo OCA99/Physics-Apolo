@@ -9,7 +9,7 @@ class Planet
 {
 public:
 
-	Planet(Vec2f pos, int radius, int points, float density, const char* path);
+	Planet(Vec2f pos, int radius, int points, float density, const char* path, float gmin, float gmax);
 
 	// Destructor
 	virtual ~Planet();

@@ -29,7 +29,7 @@ bool Player::Start()
     img = app->tex->Load("Assets/Textures/player.png");
 
     //BODY
-    r = new Rigidbody(Vec2f(2.0f, 2.0f) * app->scene->world->scale, 1, app->scene->world->scale);
+    r = new Rigidbody(Vec2f(2.0f, 2.0f) * app->scene->world->scale, 0.000001f, app->scene->world->scale, 0, 0);
 
     DynArray<Vec2f>* c = new DynArray<Vec2f>();
     c->PushBack(Vec2f(0.2f, 0) * app->scene->world->scale);
@@ -39,8 +39,6 @@ bool Player::Start()
     Polygon* cp = new Polygon(c);
     r->AddFixture(cp);
     app->scene->world->AddBody(r);
-
-    r->Rotate(1);
 
     return true;
 }
@@ -56,7 +54,7 @@ bool Player::Update(float dt)
 
     if (app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT)
     {
-        Vec2f dir = Vec2f(0, -0.4f);
+        Vec2f dir = Vec2f(0, -0.0000004f);
         dir = Vec2f(dir.x * cos(r->angle) - dir.y * sin(r->angle), dir.x * sin(r->angle) + dir.y * cos(r->angle));
         r->AddForce(dir);
     }

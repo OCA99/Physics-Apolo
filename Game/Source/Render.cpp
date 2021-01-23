@@ -78,6 +78,9 @@ bool Render::Update(float dt)
 	camera.x = -(app->player->r->centerOfMass.x  - camera.w / 2);
 	camera.y = -(app->player->r->centerOfMass.y  - camera.h / 2);
 
+	//camera.x = -(app->scene->moon->p->centerOfMass.x - camera.w / 2);
+	//camera.y = -(app->scene->moon->p->centerOfMass.y - camera.h / 2);
+
 	if (camera.x >= 500) camera.x = 500;
 	if (camera.x <= -11000) camera.x = -11000;
 
@@ -118,7 +121,7 @@ void Render::ResetViewPort()
 }
 
 // Blit to screen
-bool Render::DrawTexture(SDL_Texture* texture, int x, int y, const SDL_Rect* section, int s, float speed, double angle, int pivotX, int pivotY ) const
+bool Render::DrawTexture(SDL_Texture* texture, int x, int y, const SDL_Rect* section, float s, float speed, double angle, int pivotX, int pivotY ) const
 {
 	bool ret = true;
 	uint scale = app->win->GetScale();

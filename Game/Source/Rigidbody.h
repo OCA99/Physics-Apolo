@@ -13,7 +13,7 @@
 class Rigidbody
 {
 public:
-	Rigidbody(Vec2f _position, float _density, int _scale)
+	Rigidbody(Vec2f _position, float _density, int _scale, float _gravityMin, float _gravityMax)
 	{
 		position = _position;
 		velocity = Vec2f(0.0f, 0.0f);
@@ -22,6 +22,8 @@ public:
 		AABB = new Rectf();
 		density = _density;
 		scale = _scale;
+		gravityMin = _gravityMin;
+		gravityMax = _gravityMax;
 	}
 
 	~Rigidbody()
@@ -31,8 +33,20 @@ public:
 
 	void Update(float dt)
 	{
+		if (stat)
+		{
+			forces.x = 0.0f;
+			forces.y = 0.0f;
+			torque = 0.0f;
+
+			return;
+		}
 		Vec2f acceleration = forces / mass;
 		velocity += acceleration * dt;
+		if (velocity.Length() > 12.0f)
+		{
+			velocity = (velocity / velocity.Length()) * 12.0f;
+		}
 		position += velocity;
 		float angularAcceleration = torque / momentOfInertia;
 		angularVelocity += angularAcceleration * dt;
@@ -74,8 +88,6 @@ public:
 
 	void UpdateFixtures()
 	{
-		if (stat)
-			return;
 		for (int i = 0; i < fixtures.Count(); i++)
 		{
 			(*fixtures.At(i))->Translate(velocity);
@@ -190,10 +202,17 @@ public:
 			radius = (s - centerOfMass).Length();
 	}
 
-	float getMoment(Vec2f p)
+	double getMoment(Vec2f p, Rigidbody* other)
 	{
-		float w = abs(angularVelocity) * momentOfInertia;
-		float m = mass * velocity.Length();
+		double w = abs(angularVelocity) * momentOfInertia;
+		double m = mass * (other->velocity - velocity).Length();
+		return w + m;
+	}
+
+	double getMoment(Vec2f p)
+	{
+		double w = abs(angularVelocity) * momentOfInertia;
+		double m = mass * (velocity).Length();
 		return w + m;
 	}
 
@@ -209,6 +228,9 @@ public:
 	Vec2f centerOfMass;
 	float radius = 1;
 	bool stat = false;
+
+	float gravityMin;
+	float gravityMax;
 
 	Rectf* AABB = nullptr;
 

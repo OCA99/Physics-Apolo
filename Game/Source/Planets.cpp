@@ -6,9 +6,9 @@
 
 #include "World.h"
 
-Planet::Planet(Vec2f pos, int radius, int points, float density, const char* path)
+Planet::Planet(Vec2f pos, int radius, int points, float density, const char* path, float gmin, float gmax)
 {
-    p = new Rigidbody(pos * app->scene->world->scale, density, app->scene->world->scale);
+    p = new Rigidbody(pos * app->scene->world->scale, density, app->scene->world->scale, gmin, gmax);
 
     r = radius;
     pts = points;
