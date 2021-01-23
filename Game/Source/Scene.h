@@ -3,6 +3,7 @@
 
 #include "Module.h"
 #include "World.h"
+#include "Planets.h"
 
 struct SDL_Texture;
 
@@ -35,7 +36,11 @@ public:
 
 	World* world;
 
+	
+
 private:
+	Planet* earth;
+	Planet* moon;
 	SDL_Texture* img;
 	SDL_Texture* bg;
 	Rigidbody* r;

@@ -5,6 +5,7 @@
 #include "Render.h"
 #include "Window.h"
 #include "Scene.h"
+#include "Player.h"
 
 #include "Defs.h"
 #include "Vector2.h"
@@ -38,9 +39,15 @@ bool Scene::Awake()
 // Called before the first frame
 bool Scene::Start()
 {
-	bg = app->tex->Load("Assets/Textures/background.png");
+	bg = app->tex->Load("Assets/Textures/backgroundBig.png");
 
-	Planet* p = new Planet(Vec2f(1.0f, 1.0f), 5, 50, 1, "Assets/Textures/background.png");
+	earth = new Planet(Vec2f(25.0f, 25.0f), 9, 50, 800, "Assets/Textures/Planets/Terran.png");
+	earth->p->stat = true;
+	moon = new Planet(Vec2f(50.0f, 25.0f), 3, 50, 10, "Assets/Textures/Planets/Baren.png");
+
+	float iny = sqrt(GVAR * earth->p->mass / (earth->p->centerOfMass.DistanceTo(moon->p->centerOfMass)/world->scale));
+	moon->p->velocity = Vec2f(0, iny);
+
 
 	return true;
 }
@@ -92,7 +99,10 @@ bool Scene::PostUpdate()
 
 		app->render->DrawRectangle(SDL_Rect({ (int)r->AABB->min.x, (int)r->AABB->min.y, (int)r->AABB->max.x - (int)r->AABB->min.x, (int)r->AABB->max.y - (int)r->AABB->min.y }), 0, 255, 0, 255, false,true);
 		app->render->DrawRectangle(SDL_Rect({ (int)r->centerOfMass.x - 10, (int)r->centerOfMass.y - 10, 20, 20 }), 0, 255, 0, 255, false,true);
+
 	}
+
+	app->render->DrawLine(app->player->r->centerOfMass.x, app->player->r->centerOfMass.y, moon->p->centerOfMass.x, moon->p->centerOfMass.y, 0, 0, 255, 255);
 
 	return ret;
 }

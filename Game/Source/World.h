@@ -5,6 +5,8 @@
 #include "Pair.h"
 #include "Collision.h"
 
+#define GVAR 0.0005
+
 class World
 {
 public:
@@ -29,6 +31,7 @@ public:
 		DynArray<Collision*> collisions;
 		FindCollisions(collisions);
 		SolveCollisions(collisions, dt);
+		CalculateGravity();
 	}
 
 	DynArray<Rigidbody*> bodies;
@@ -142,6 +145,11 @@ private:
 
 			while (b->Intersects(a, tmp))
 			{
+				if (b->velocity.IsZero())
+				{
+					break;
+				}
+
 				b->Translate(Vec2f(-b->velocity.x, -b->velocity.y));
 				
 				Vec2f d = (cp - (b->centerOfMass - b->position));
@@ -149,13 +157,17 @@ private:
 				int t = (d.x * bn.y - d.y * bn.x > 0) ? 1 : -1;
 
 				//b->Rotate(t * dt);
-
 				tmp.Clear();
 			}
 
 			tmp.Clear();
 			while (a->Intersects(b, tmp))
 			{
+
+				if (a->velocity.IsZero())
+				{
+					break;
+				}
 				a->Translate(Vec2f(-a->velocity.x, -a->velocity.y));
 
 				Vec2f d = (cp - (a->centerOfMass - a->position));
@@ -176,6 +188,31 @@ private:
 
 			//b->AddForceOnPoint(cp, bn * propA * sum);
 			//a->AddForceOnPoint(cp, an * propB * sum);
+		}
+	}
+
+	void CalculateGravity()
+	{
+		for (int i = 0; i < bodies.Count(); i++)
+		{
+			Rigidbody* a = *bodies.At(i);
+			for (int j = i + 1; j < bodies.Count(); j++)
+			{
+				Rigidbody* b = *bodies.At(j);
+				
+				float distance = a->centerOfMass.DistanceTo(b->centerOfMass)/scale;
+				float force = - GVAR * (a->mass * b->mass) / (distance * distance);
+
+				Vec2f ab = (a->centerOfMass - b->centerOfMass);
+				Vec2f ba = (b->centerOfMass - a->centerOfMass);
+
+				ab = (ab / ab.Length())*force;
+				ba = (ba / ba.Length())*force;
+
+				a->AddForce(ab);
+				b->AddForce(ba);
+
+			}
 		}
 	}
 };

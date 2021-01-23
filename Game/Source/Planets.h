@@ -31,11 +31,14 @@ public:
 
 	Rigidbody* p;
 
+	DynArray<Planet*> planets;
+
 	int pts;
 	int r;
+	SDL_Texture* img;
 private:
 
-	SDL_Texture* img;
+	
 
 
 	//Properties
