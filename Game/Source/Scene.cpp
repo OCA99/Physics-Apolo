@@ -37,40 +37,7 @@ bool Scene::Awake()
 // Called before the first frame
 bool Scene::Start()
 {
-	DynArray<Vec2f>* a = new DynArray<Vec2f>();
-	DynArray<Vec2f>* b = new DynArray<Vec2f>();
 
-	a->PushBack(Vec2f(0, 0) * world->scale);
-	a->PushBack(Vec2f(1, 0) * world->scale);
-	a->PushBack(Vec2f(1, 1) * world->scale);
-	a->PushBack(Vec2f(0, 1) * world->scale);
-
-	b->PushBack(Vec2f(0, 1) * world->scale);
-	b->PushBack(Vec2f(1, 2) * world->scale);
-	b->PushBack(Vec2f(1, 1) * world->scale);
-
-	Polygon* ap = new Polygon(a);
-	Polygon* bp = new Polygon(b);
-
-	r = new Rigidbody(Vec2f(2.0f, 2.0f) * world->scale, 1, world->scale);
-	r->AddFixture(ap);
-	r->AddFixture(bp);
-	world->AddBody(r);
-
-	DynArray<Vec2f>* c = new DynArray<Vec2f>();
-	c->PushBack(Vec2f(0, 0) * world->scale);
-	c->PushBack(Vec2f(1, 0) * world->scale);
-	c->PushBack(Vec2f(1, 1) * world->scale);
-	c->PushBack(Vec2f(0, 1) * world->scale);
-
-	Polygon* cp = new Polygon(c);
-
-	r2 = new Rigidbody(Vec2f(4.0f, 2.0f) * world->scale, 1, world->scale);
-	r2->AddFixture(cp);
-	world->AddBody(r2);
-
-	r->AddTorque(Vec2f(0, 0) * world->scale, Vec2f(0, 1));
-	r2->AddForceOnPoint(Vec2f(1, 0.5f) * world->scale, Vec2f(-1, 0));
 
 	return true;
 }

@@ -131,7 +131,7 @@ private:
 			Vec2f refB = b->velocity - bn * 2 * b->velocity.dot(bn);
 			Vec2f refA = a->velocity - an * 2 * a->velocity.dot(an);
 
-			app->render->DrawLine(b->centerOfMass.x, b->centerOfMass.y, b->centerOfMass.x + bn.x * scale, b->centerOfMass.y + bn.y * scale, 0, 255, 0, 255, false);
+			//app->render->DrawLine(b->centerOfMass.x, b->centerOfMass.y, b->centerOfMass.x + bn.x * scale, b->centerOfMass.y + bn.y * scale, 0, 255, 0, 255, false);
 			/*app->render->DrawLine(b->centerOfMass.x, b->centerOfMass.y, b->centerOfMass.x + refB.x * scale, b->centerOfMass.y + refB.y * scale, 0, 0, 255, 255, false);
 			app->render->DrawLine(b->centerOfMass.x, b->centerOfMass.y, b->centerOfMass.x + b->velocity.x * scale, b->centerOfMass.y + b->velocity.y * scale, 255, 0, 0, 255, false);*/
 			

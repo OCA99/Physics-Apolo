@@ -37,6 +37,7 @@ private:
 
 	SDL_Texture* img;
 	Rigidbody* r;
+	
 
 };
 #endif // __PLAYER_H__
