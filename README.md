@@ -1,8 +1,10 @@
-# {Project Name}
+# Project Apollo
 
 ## Description
 
-{project description}
+We are 3 second year students from CITM University in Barcelona. We have been asked to develop a space game emulating the Apollo Mision: To launch a spaceship from earth, land safely on the moon and also return to the earth safely.
+
+We used SDL libraries to achieve this.
 
 ## Key Features
 
@@ -17,14 +19,16 @@
 
 ## Developers
 
- - {Dev01} - {Role(s)}
- - {Dev02} - {Role(s)}
- - {Dev03} - {Role(s)}
- - {Dev04} - {Role(s)}
- - {Dev05} - {Role(s)}
+ - Aitor Álvarez - Developer, musician.
+ - Oscar Cuatrecasas - Developer, tester.
+ - Telmo Beroiz - Developer, design.
 
 ## License
 
-This project is licensed under an unmodified MIT license, which is an OSI-certified license that allows static linking with closed source software. Check [LICENSE](LICENSE) for further details.
+This project is licensed under an unmodified MIT license, which is an OSI-certified license that allows static linking with closed source software. Check LICENSE for further details.
 
-{AdditionalLicenses}
+[SDL License](https://www.libsdl.org/license.php)
+
+[BULLET License](https://opensource.org/licenses/Zlib)
+
+[OPENGL License](https://www.opengl.org/about/#11)
