@@ -73,8 +73,8 @@ bool Render::PreUpdate()
 
 bool Render::Update(float dt)
 {
-	camera.x = -(app->player->r->position.x  - camera.w / 2);
-	camera.y = -(app->player->r->position.y  - camera.h / 2);
+	camera.x = -(app->player->r->centerOfMass.x  - camera.w / 2);
+	camera.y = -(app->player->r->centerOfMass.y  - camera.h / 2);
 
 	return true;
 }

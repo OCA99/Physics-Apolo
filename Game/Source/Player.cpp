@@ -60,11 +60,11 @@ bool Player::Update(float dt)
         dir = Vec2f(dir.x * cos(r->angle) - dir.y * sin(r->angle), dir.x * sin(r->angle) + dir.y * cos(r->angle));
         r->AddForce(dir);
     }
-    if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
+    if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
     {
         r->Rotate(0.1f);
     }
-    if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
+    if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
     {
         r->Rotate(-0.1f);
     }
