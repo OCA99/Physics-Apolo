@@ -46,6 +46,8 @@ public:
 
 	void Translate(Vec2f dp)
 	{
+		if (stat)
+			return;
 		for (int i = 0; i < fixtures.Count(); i++)
 		{
 			(*fixtures.At(i))->Translate(dp);
@@ -57,6 +59,8 @@ public:
 
 	void Rotate(float dr)
 	{
+		if (stat)
+			return;
 		for (int i = 0; i < fixtures.Count(); i++)
 		{
 			(*fixtures.At(i))->RotateAround(dr, centerOfMass);
@@ -66,6 +70,8 @@ public:
 
 	void UpdateFixtures()
 	{
+		if (stat)
+			return;
 		for (int i = 0; i < fixtures.Count(); i++)
 		{
 			(*fixtures.At(i))->Translate(velocity);
@@ -198,6 +204,7 @@ public:
 	float angularVelocity = 0;
 	Vec2f centerOfMass;
 	float radius = 1;
+	bool stat = false;
 
 	Rectf* AABB = nullptr;
 
