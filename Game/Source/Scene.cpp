@@ -37,8 +37,7 @@ bool Scene::Awake()
 // Called before the first frame
 bool Scene::Start()
 {
-
-
+	bg = app->tex->Load("Assets/Textures/background.png");
 	return true;
 }
 
@@ -87,8 +86,9 @@ bool Scene::PostUpdate()
 		app->render->DrawRectangle(SDL_Rect({ (int)r->AABB->min.x, (int)r->AABB->min.y, (int)r->AABB->max.x - (int)r->AABB->min.x, (int)r->AABB->max.y - (int)r->AABB->min.y }), 0, 255, 0, 255, false,true);
 		app->render->DrawRectangle(SDL_Rect({ (int)r->centerOfMass.x - 10, (int)r->centerOfMass.y - 10, 20, 20 }), 0, 255, 0, 255, false,true);
 	}
-
-
+	//Draw BackGround
+	SDL_Rect rec = { 0,0,640,640 };
+	app->render->DrawTexture(bg, -500, -500, &rec, 5);
 	return ret;
 }
 

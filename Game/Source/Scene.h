@@ -37,6 +37,7 @@ public:
 
 private:
 	SDL_Texture* img;
+	SDL_Texture* bg;
 	Rigidbody* r;
 	Rigidbody* r2;
 };
