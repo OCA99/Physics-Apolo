@@ -14,13 +14,14 @@ Player::~Player()
 bool Player::Awake(pugi::xml_node&)
 {
     bool ret = true;
-    img = app->tex->Load("/Assets/Textures/player.png");
+ 
 
     return ret;
 }
 
 bool Player::Start()
 {
+    img = app->tex->Load("Assets/Textures/player.png");
     return true;
 }
 
