@@ -12,6 +12,7 @@
 #include "Polygon.h"
 #include "Rigidbody.h"
 #include "Log.h"
+#include "Planets.h"
 
 Scene::Scene() : Module()
 {
@@ -38,6 +39,9 @@ bool Scene::Awake()
 bool Scene::Start()
 {
 	bg = app->tex->Load("Assets/Textures/background.png");
+
+	Planet* p = new Planet(Vec2f(1.0f, 1.0f), 5, 50, 1, "Assets/Textures/background.png");
+
 	return true;
 }
 

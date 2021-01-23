@@ -99,6 +99,7 @@
     <ClCompile Include="Source\App.cpp" />
     <ClCompile Include="Source\Audio.cpp" />
     <ClCompile Include="Source\Input.cpp" />
+    <ClCompile Include="Source\Planets.cpp" />
     <ClCompile Include="Source\Player.cpp" />
     <ClCompile Include="Source\Scene.cpp" />
     <ClCompile Include="Source\Render.cpp" />
@@ -108,6 +109,7 @@
     <ClInclude Include="Source\Collision.h" />
     <ClInclude Include="Source\Line.h" />
     <ClInclude Include="Source\Pair.h" />
+    <ClInclude Include="Source\Planets.h" />
     <ClInclude Include="Source\Player.h" />
     <ClInclude Include="Source\Polygon.h" />
     <ClInclude Include="Source\Queue.h" />
