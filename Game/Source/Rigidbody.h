@@ -54,6 +54,8 @@ public:
 			CalculateAABB();
 		}
 
+		position += dp;
+
 		centerOfMass += dp;
 	}
 
@@ -66,6 +68,8 @@ public:
 			(*fixtures.At(i))->RotateAround(dr, centerOfMass);
 			CalculateAABB();
 		}
+
+		angle += dr;
 	}
 
 	void UpdateFixtures()
