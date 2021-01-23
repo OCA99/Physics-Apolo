@@ -174,8 +174,8 @@ private:
 			float propA = momentA / sum;
 			float propB = momentB / sum;
 
-			b->AddForceOnPoint(cp, bn * propA * sum);
-			a->AddForceOnPoint(cp, an * propB * sum);
+			//b->AddForceOnPoint(cp, bn * propA * sum);
+			//a->AddForceOnPoint(cp, an * propB * sum);
 		}
 	}
 };

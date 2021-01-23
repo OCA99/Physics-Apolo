@@ -8,7 +8,7 @@
 
 #include "Polygon.h"
 
-#include <math.h>
+#include <cmath>
 
 class Rigidbody
 {
