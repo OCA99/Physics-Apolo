@@ -33,11 +33,14 @@ public:
 	// Called before quitting
 	bool CleanUp();
 
+	Rigidbody* r;
 private:
 
 	SDL_Texture* img;
-	Rigidbody* r;
-	
+
+
+	//Properties
+
 
 };
 #endif // __PLAYER_H__

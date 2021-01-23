@@ -94,7 +94,7 @@ public:
 
 	void AddForce(Vec2f f)
 	{
-		forces += f * scale;
+		forces += f * scale ;
 	}
 
 	void AddTorque(Vec2f r, Vec2f f)
