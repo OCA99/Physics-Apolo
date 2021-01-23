@@ -6,6 +6,8 @@ We are 3 second year students from CITM University in Barcelona. We have been as
 
 We used SDL libraries to achieve this.
 
+## Screenshot
+
 ## Key Features
 
  - {Feature01}
@@ -15,7 +17,7 @@ We used SDL libraries to achieve this.
  
 ## Controls
 
- - {ControlsScheme}
+ - **WAD:** Move de Spaceship
 
 ## Developers
 
