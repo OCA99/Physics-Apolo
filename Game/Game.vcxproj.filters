@@ -15,6 +15,7 @@
     <ClCompile Include="Source\External\PugiXml\src\pugixml.cpp">
       <Filter>External\PugiXml</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Player.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Window.h" />
@@ -79,6 +80,7 @@
     <ClInclude Include="Source\Line.h">
       <Filter>TAO</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Player.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="External">
