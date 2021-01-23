@@ -148,7 +148,7 @@ private:
 				d /= scale;
 				int t = (d.x * bn.y - d.y * bn.x > 0) ? 1 : -1;
 
-				b->Rotate(t * dt);
+				//b->Rotate(t * dt);
 
 				tmp.Clear();
 			}
@@ -162,7 +162,7 @@ private:
 				d /= scale;
 				int t = (d.x * an.y - d.y * an.x > 0) ? 1 : -1;
 
-				a->Rotate(t * dt);
+				//a->Rotate(t * dt);
 
 				tmp.Clear();
 			}

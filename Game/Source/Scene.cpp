@@ -69,7 +69,7 @@ bool Scene::Start()
 	r2->AddFixture(cp);
 	world->AddBody(r2);
 
-	//r->AddTorque(Vec2f(0, 0) * world->scale, Vec2f(0, 1));
+	r->AddTorque(Vec2f(0, 0) * world->scale, Vec2f(0, 1));
 	r2->AddForceOnPoint(Vec2f(1, 0.5f) * world->scale, Vec2f(-1, 0));
 
 	return true;

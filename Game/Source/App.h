@@ -93,7 +93,7 @@ private:
 
 	uint frames;
 	float dt;
-	float timeScale = 0.5f;
+	float timeScale = 1.0f;
 
 	const int FPS = 60;
 	const int frameDelay = 1000 / FPS;

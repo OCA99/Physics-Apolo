@@ -79,7 +79,7 @@ public:
 	void AddForceOnPoint(Vec2f r, Vec2f f)
 	{
 		AddForce(f);
-		AddTorque(r, f);
+		//AddTorque(r, f);
 	}
 
 	void AddForce(Vec2f f)
