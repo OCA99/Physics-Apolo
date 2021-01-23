@@ -11,10 +11,10 @@ Player::~Player()
 {
 }
 
-bool Player::Awake()
+bool Player::Awake(pugi::xml_node&)
 {
     bool ret = true;
-    img = app->tex->Load("Assets\Textures\player.png");
+    img = app->tex->Load("/Assets/Textures/player.png");
 
     return ret;
 }
