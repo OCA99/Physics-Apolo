@@ -39,8 +39,9 @@ public:
 	
 
 	Planet* moon;
-private:
 	Planet* earth;
+
+private:
 	SDL_Texture* img;
 	SDL_Texture* bg;
 	Rigidbody* r;

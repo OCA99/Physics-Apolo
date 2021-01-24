@@ -6,8 +6,8 @@
 #include "Collision.h"
 
 #define GVAR 0.0005
-#define DRAGC 0.1
-#define DENSITY 0
+#define DRAGC 0.5
+#define DENSITY 1.225
 
 class World
 {
@@ -34,6 +34,29 @@ public:
 		DynArray<Collision*> collisions;
 		FindCollisions(collisions);
 		SolveCollisions(collisions, dt);
+	}
+
+	void DragForce(Rigidbody* body)
+	{
+
+		/*float velModule = sqrt((body->velocity.x * body->velocity.x)/scale + (body->velocity.y + body->velocity.y)/scale);
+		float force = 0.5 * (DENSITY * velModule * DRAGC * 0.1);
+
+		Vec2f aDrag = (body->velocity / body->velocity.Length())*(-1) * (-force);
+
+		body->AddForce(aDrag);*/
+		
+		float forceX = 0.5 * (DENSITY * body->velocity.x * DRAGC * 0.1);
+		float forceY = 0.5 * (DENSITY * body->velocity.y * DRAGC * 0.1);
+
+		Vec2f aDrag = {(body->velocity / body->velocity.Length()) };
+		//aDrag *= -1;
+
+		aDrag.x *= forceX;
+		aDrag.y *= forceY;
+
+		body->AddForce(aDrag);
+
 	}
 
 	DynArray<Rigidbody*> bodies;
@@ -263,19 +286,5 @@ private:
 		}
 	}
 
-	void DragForce()
-	{
-		for (int i = 0; i < bodies.Count(); i++)
-		{
-			Rigidbody* a = *bodies.At(i);
-
-			float velModule = sqrt((a->velocity.x * a->velocity.x) + (a->velocity.y + a->velocity.y));
-			float force = 0.5*(DENSITY * velModule * DRAGC * 1);
-
-			Vec2f aDrag = (a->velocity / a->velocity.Length())* (-force);
-
-			a->AddForce(aDrag);
-
-		}
-	}
+	
 };
