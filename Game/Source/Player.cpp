@@ -42,13 +42,6 @@ bool Player::Start()
     r->AddFixture(cp);
     app->scene->world->AddBody(r);
 
-    powerAnim.GenerateAnimation({ 0,0,256,256 }, 5, 4, 0, 0);
-    powerAnim.loop = false;
-    powerAnim.speed = 0.1f;
-
-    currentAnim = &powerAnim;
-
-    r->Rotate(M_PI / 2);
     return true;
 }
 
@@ -60,20 +53,26 @@ bool Player::PreUpdate()
 
 bool Player::Update(float dt)
 {
-
+    rec = { 17,0,13,21 };
     if (app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT)
     {
         Vec2f dir = Vec2f(0, -0.00004f);
         dir = Vec2f(dir.x * cos(r->angle) - dir.y * sin(r->angle), dir.x * sin(r->angle) + dir.y * cos(r->angle));
         r->AddForce(dir);
+        rec = { 0,0,13,21 };
     }
     if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
     {
         r->Rotate(0.1f);
+        rec = { 0,0,13,21 };
+
+
     }
     if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
     {
         r->Rotate(-0.1f);
+        rec = { 0,0,13,21 };
+
     }
     if (app->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
     {
@@ -85,14 +84,12 @@ bool Player::Update(float dt)
 
 bool Player::PostUpdate()
 {
-    SDL_Rect rec = { 0,0,13,16 };
+
     float ang = r->angle * 180 / M_PI;
+
     app->render->DrawTexture(img, r->position.x, r->position.y, &rec, 3, 1.0f, ang);
 
-    currentAnim->Update();
 
-    SDL_Rect a = currentAnim->GetCurrentFrame();
-    app->render->DrawTexture(power, r->position.x, r->position.y, &a, 0.5f);
 
     float angle = 0;
 
