@@ -13,6 +13,14 @@
 class Rigidbody
 {
 public:
+
+	enum class Type {
+		UNDEFINED,
+		MOON,
+		EARTH,
+		PLAYER
+	};
+
 	Rigidbody(Vec2f _position, float _density, int _scale, float _gravityMin, float _gravityMax)
 	{
 		position = _position;
@@ -24,6 +32,7 @@ public:
 		scale = _scale;
 		gravityMin = _gravityMin;
 		gravityMax = _gravityMax;
+		type = Type::UNDEFINED;
 	}
 
 	~Rigidbody()
@@ -224,6 +233,7 @@ public:
 	Vec2f centerOfMass;
 	float radius = 1;
 	bool stat = false;
+	Type type;
 
 	float gravityMin;
 	float gravityMax;
@@ -231,6 +241,8 @@ public:
 	Rectf* AABB = nullptr;
 
 	DynArray<Shape*> fixtures;
+
+	bool gotToMoon = false;
 
 private:
 	int scale = 1;
