@@ -150,14 +150,19 @@ bool Scene::PostUpdate()
 	
 	app->render->DrawTexture(athmo, earth->p->position.x - (18 * world->scale), earth->p->position.y - (18 * world->scale), &SDL_Rect({ 0, 0, 200, 200 }), 17.8f);
 	app->render->DrawTexture(earth->img, earth->p->position.x - (earth->r * world->scale), earth->p->position.y - (earth->r * world->scale), &earthAnimation->GetCurrentFrame(), 17.8f);
+	
+	SDL_Rect tmp = { 0, 0, 16, 16 };
+	if (app->player->r->gotToMoon)
+	{
+		app->render->DrawTexture(flag, moon->p->position.x - 14, moon->p->position.y - (moon->r * world->scale) - 52, &tmp, 4.0f);
+	}
+	
 	app->render->DrawTexture(moon->img, moon->p->position.x - (moon->r * world->scale), moon->p->position.y - (moon->r * world->scale), &moonAnimation->GetCurrentFrame(), 5.95f);
 	if (app->player->joinedBox)
 		app->render->DrawLine(app->player->r->centerOfMass.x, app->player->r->centerOfMass.y, box->centerOfMass.x, box->centerOfMass.y, 255, 255, 255, 255);
 	app->render->DrawTexture(boxTexture, box->position.x, box->position.y, &SDL_Rect({ 0, 0, 22, 16 }), 1.55f);
 
-	SDL_Rect tmp = { 0, 0, 512, 512 };
-	if (app->player->r->gotToMoon)
-		app->render->DrawTexture(flag, moon->p->position.x - (moon->r * world->scale) + 100, moon->p->position.y - (moon->r * world->scale) + 50, &tmp, 0.2f);
+
 
 	//app->render->DrawLine(app->player->r->centerOfMass.x, app->player->r->centerOfMass.y, moon->p->centerOfMass.x, moon->p->centerOfMass.y, 0, 0, 255, 255);
 
