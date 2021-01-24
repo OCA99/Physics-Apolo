@@ -41,12 +41,12 @@ bool Scene::Start()
 {
 	bg = app->tex->Load("Assets/Textures/backgroundBig.png");
 
-	earth = new Planet(Vec2f(35.0f, 35.0f), 9, 50, 3000, "Assets/Textures/Planets/Terran.png", 9, 80);
+	earth = new Planet(Vec2f(35.0f, 35.0f), 9, 50, 10000, "Assets/Textures/Planets/Terran.png", 9, 80);
 	earth->p->stat = true;
-	moon = new Planet(Vec2f(60.0f, 35.0f), 3, 50, 3000, "Assets/Textures/Planets/Baren.png", 3, 10);
+	moon = new Planet(Vec2f(60.0f, 35.0f), 3, 50, 10000, "Assets/Textures/Planets/Baren.png", 3, 20);
 
 	//float iny = sqrt(GVAR * earth->p->mass / (earth->p->centerOfMass.DistanceTo(moon->p->centerOfMass)/world->scale));
-	moon->p->velocity = Vec2f(0, 3.7f);
+	moon->p->velocity = Vec2f(0, 6000);
 
 
 	return true;

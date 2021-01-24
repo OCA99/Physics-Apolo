@@ -209,7 +209,7 @@ bool App::DoUpdate()
 			continue;
 		}
 
-		ret = item->data->Update(dt);
+		ret = item->data->Update(0.001f);
 	}
 
 	return ret;

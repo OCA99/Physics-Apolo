@@ -42,16 +42,12 @@ public:
 			return;
 		}
 		Vec2f acceleration = forces / mass;
-		velocity += acceleration * dt;
-		if (velocity.Length() > 12.0f)
-		{
-			velocity = (velocity / velocity.Length()) * 12.0f;
-		}
-		position += velocity;
+		velocity += acceleration;
+		position += velocity * dt;
 		float angularAcceleration = torque / momentOfInertia;
-		angularVelocity += angularAcceleration * dt;
-		angle += angularVelocity;
-		UpdateFixtures();
+		angularVelocity += angularAcceleration;
+		angle += angularVelocity * dt;
+		UpdateFixtures(dt);
 		forces.x = 0.0f;
 		forces.y = 0.0f;
 		torque = 0.0f;
@@ -86,16 +82,16 @@ public:
 		angle += dr;
 	}
 
-	void UpdateFixtures()
+	void UpdateFixtures(float dt)
 	{
 		for (int i = 0; i < fixtures.Count(); i++)
 		{
-			(*fixtures.At(i))->Translate(velocity);
-			(*fixtures.At(i))->RotateAround(angularVelocity, centerOfMass);
+			(*fixtures.At(i))->Translate(velocity * dt);
+			(*fixtures.At(i))->RotateAround(angularVelocity * dt, centerOfMass);
 			CalculateAABB();
 		}
 
-		centerOfMass += velocity;
+		centerOfMass += velocity * dt;
 	}
 
 	void AddForceOnPoint(Vec2f r, Vec2f f)
@@ -106,7 +102,7 @@ public:
 
 	void AddForce(Vec2f f)
 	{
-		forces += f * scale ;
+		forces += f;
 	}
 
 	void AddTorque(Vec2f r, Vec2f f)
@@ -211,9 +207,9 @@ public:
 
 	double getMoment(Vec2f p)
 	{
-		double w = abs(angularVelocity) * momentOfInertia;
+		//double w = abs(angularVelocity) * momentOfInertia;
 		double m = mass * (velocity).Length();
-		return w + m;
+		return m;
 	}
 
 	float mass = 1;

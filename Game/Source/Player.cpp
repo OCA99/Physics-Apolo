@@ -54,7 +54,7 @@ bool Player::Update(float dt)
 
     if (app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT)
     {
-        Vec2f dir = Vec2f(0, -0.0000004f);
+        Vec2f dir = Vec2f(0, -0.00004f);
         dir = Vec2f(dir.x * cos(r->angle) - dir.y * sin(r->angle), dir.x * sin(r->angle) + dir.y * cos(r->angle));
         r->AddForce(dir);
     }

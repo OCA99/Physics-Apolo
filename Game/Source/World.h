@@ -119,7 +119,7 @@ private:
 
 				while (a->Intersects(b, tmp))
 				{
-					a->Translate(c * a->velocity.Length());
+					a->Translate(c);
 					tmp.Clear();
 				}
 			}
@@ -130,7 +130,7 @@ private:
 
 				while (b->Intersects(a, tmp))
 				{
-					b->Translate(c * b->velocity.Length());
+					b->Translate(c);
 					tmp.Clear();
 				}
 			}
@@ -209,20 +209,25 @@ private:
 			double propA = momentA / sum;
 			double propB = momentB / sum;
 
-			//a->velocity = refA * propA;
-			//b->velocity = refB * propB;
 
 			float moment;
+
+			refA = refA / refA.Length();
+			refB = refB / refB.Length();
 
 			if (a->mass < b->mass)
 			{
 				moment = a->getMoment(cp);
-				a->AddForceOnPoint(cp, (an * moment));
+				a->velocity = refA * (b->velocity - a->velocity).Length() * 0.5f;
+				a->velocity += b->velocity;
+				//a->AddForceOnPoint(cp, (an * moment));
 			}
 			else
 			{
 				moment = b->getMoment(cp);
-				b->AddForceOnPoint(cp, (bn * moment));
+				b->velocity = refB * (a->velocity - b->velocity).Length() * 0.5f;
+				b->velocity += a->velocity;
+				//b->AddForceOnPoint(cp, (bn * moment));
 			}
 
 		}
@@ -238,7 +243,7 @@ private:
 				Rigidbody* b = *bodies.At(j);
 				
 				float distance = a->centerOfMass.DistanceTo(b->centerOfMass)/scale;
-				float force = - GVAR * (a->mass * b->mass) / ((distance * distance) * 10);
+				float force = - GVAR * (a->mass * b->mass) / ((distance * distance) * 20);
 
 				Vec2f ab = (a->centerOfMass - b->centerOfMass);
 				Vec2f ba = (b->centerOfMass - a->centerOfMass);
@@ -247,10 +252,10 @@ private:
 				ba = (ba / ba.Length())*force;
 
 				if (distance > b->gravityMin && distance < b->gravityMax)
-					a->AddForce(ab);
+					a->AddForce(ab * scale);
 
 				if (distance > a->gravityMin && distance < a->gravityMax)
-					b->AddForce(ba);
+					b->AddForce(ba * scale);
 
 			}
 		}
