@@ -39,10 +39,8 @@ public:
 private:
 
 	SDL_Texture* img;
-	SDL_Texture* power;
-	Animation* currentAnim;
-	Animation powerAnim;
 
+	SDL_Rect rec;
 
 
 	//Properties
