@@ -47,6 +47,8 @@ private:
 	Animation* earthAnimation;
 	Animation* moonAnimation;
 
+	SDL_Texture* athmo;
+
 	SDL_Texture* img;
 	SDL_Texture* bg;
 	Rigidbody* r;

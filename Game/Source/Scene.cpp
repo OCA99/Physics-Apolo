@@ -49,6 +49,8 @@ bool Scene::Start()
 	moon = new Planet(Vec2f(60.0f, 35.0f), 3, 50, 10000, "Assets/Textures/Planets/Baren.png", 3, 20);
 	moon->p->type = Rigidbody::Type::MOON;
 
+	athmo = app->tex->Load("Assets/Textures/Planets/athmo.png");
+
 	//float iny = sqrt(GVAR * earth->p->mass / (earth->p->centerOfMass.DistanceTo(moon->p->centerOfMass)/world->scale));
 	moon->p->velocity = Vec2f(0, 6000);
 
@@ -106,7 +108,8 @@ bool Scene::PostUpdate()
 					Vec2f a = *p->vertices->At(k);
 					Vec2f b = *p->vertices->At(l);
 
-					app->render->DrawLine(a.x, a.y, b.x, b.y, 255, 0, 0, 255, true);
+					if (app->player->debug)
+						app->render->DrawLine(a.x, a.y, b.x, b.y, 255, 0, 0, 255, true);
 				}
 			}
 		}
@@ -125,7 +128,8 @@ bool Scene::PostUpdate()
 		app->render->DrawLine(earth->p->centerOfMass.x, earth->p->centerOfMass.y, moon->p->centerOfMass.x, moon->p->centerOfMass.y, 255, 0, 0, 255);
 		app->render->DrawLine(app->player->r->centerOfMass.x, app->player->r->centerOfMass.y, moon->p->centerOfMass.x, moon->p->centerOfMass.y, 0, 0, 255, 255);
 	}
-
+	
+	app->render->DrawTexture(athmo, earth->p->position.x - (18 * world->scale), earth->p->position.y - (18 * world->scale), &SDL_Rect({ 0, 0, 200, 200 }), 17.8f);
 	app->render->DrawTexture(earth->img, earth->p->position.x - (earth->r * world->scale), earth->p->position.y - (earth->r * world->scale), &earthAnimation->GetCurrentFrame(), 17.8f);
 	app->render->DrawTexture(moon->img, moon->p->position.x - (moon->r * world->scale), moon->p->position.y - (moon->r * world->scale), &moonAnimation->GetCurrentFrame(), 5.95f);
 

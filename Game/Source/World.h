@@ -6,7 +6,7 @@
 #include "Collision.h"
 
 #define GVAR 0.0005
-#define DRAGC 0.5
+#define DRAGC 0.4
 #define DENSITY 1.225
 
 class World
@@ -36,27 +36,15 @@ public:
 		SolveCollisions(collisions, dt);
 	}
 
-	void DragForce(Rigidbody* body)
+	Vec2f DragForce(Rigidbody* body)
 	{
 
-		/*float velModule = sqrt((body->velocity.x * body->velocity.x)/scale + (body->velocity.y + body->velocity.y)/scale);
+		float velModule = body->velocity.Length();
 		float force = 0.5 * (DENSITY * velModule * DRAGC * 0.1);
 
-		Vec2f aDrag = (body->velocity / body->velocity.Length())*(-1) * (-force);
+		Vec2f aDrag = (body->velocity / body->velocity.Length()) * (-force);
 
-		body->AddForce(aDrag);*/
-		
-		float forceX = 0.5 * (DENSITY * body->velocity.x * DRAGC * 0.1);
-		float forceY = 0.5 * (DENSITY * body->velocity.y * DRAGC * 0.1);
-
-		Vec2f aDrag = {(body->velocity / body->velocity.Length()) };
-		//aDrag *= -1;
-
-		aDrag.x *= forceX;
-		aDrag.y *= forceY;
-
-		body->AddForce(aDrag);
-
+		return aDrag;
 	}
 
 	DynArray<Rigidbody*> bodies;

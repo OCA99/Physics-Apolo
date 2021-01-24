@@ -43,6 +43,8 @@ private:
 	SDL_Texture* img;
 	SDL_Texture* arrow;
 
+	Vec2f drag;
+
 	SDL_Rect rec;
 
 

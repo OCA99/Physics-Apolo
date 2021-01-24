@@ -69,6 +69,7 @@ bool Player::Update(float dt)
 
 
     }
+
     if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
     {
         r->Rotate(-0.1f);
@@ -79,10 +80,13 @@ bool Player::Update(float dt)
     {
         debug = !debug;
     }
-  /*  if (r->centerOfMass.DistanceTo(app->scene->earth->p->centerOfMass)/app->scene->world->scale < app->scene->earth->r + 20.f)
+
+    if (r->centerOfMass.DistanceTo(app->scene->earth->p->centerOfMass)/app->scene->world->scale < app->scene->earth->r + 6.0f)
     {
-        app->scene->world->DragForce(r);
-    }*/
+        drag = app->scene->world->DragForce(r);
+        Vec2f f = drag * r->mass;
+        r->AddForce(f);
+    }
 
     return true;
 }
@@ -110,6 +114,12 @@ bool Player::PostUpdate()
     angle += M_PI / 2;
 
     app->render->DrawTexture(arrow, 0 - app->render->camera.x + app->render->camera.w / 2 - 31, 0 - app->render->camera.y + app->render->camera.h - 85, &SDL_Rect({ 0, 0, 62, 71 }), 1, 1, angle * (180 / M_PI));
+
+    if (r->centerOfMass.DistanceTo(app->scene->earth->p->centerOfMass) / app->scene->world->scale < app->scene->earth->r + 6.0f && debug)
+    {
+        app->render->DrawLine(r->centerOfMass.x, r->centerOfMass.y, app->scene->earth->p->centerOfMass.x, app->scene->earth->p->centerOfMass.y, 255, 0, 0, 255);
+        app->render->DrawLine(r->centerOfMass.x, r->centerOfMass.y, r->centerOfMass.x + drag.x, r->centerOfMass.y + drag.y, 0, 255, 0, 255);
+    }
 
     return true;
 }
