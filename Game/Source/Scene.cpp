@@ -49,17 +49,20 @@ bool Scene::Start()
 	earth->p->type = Rigidbody::Type::EARTH;
 	moon = new Planet(Vec2f(60.0f, 35.0f), 3, 50, 10000, "Assets/Textures/Planets/Baren.png", 3, 20);
 	moon->p->type = Rigidbody::Type::MOON;
-	box = new Rigidbody(Vec2f(35.0f,24.0f), 1.0f, world->scale, 0.0f, 0.0f);
+	boxTexture = app->tex->Load("Assets/Textures/box.png");
+	box = new Rigidbody(Vec2f(60.0f, 32.0f) * world->scale, 0.0000003f, world->scale, 0.0f, 0.0f);
+	box->type = Rigidbody::Type::BOX;
 	DynArray<Vec2f>* points = new DynArray<Vec2f>();
 	points->PushBack(Vec2f(0, 0) * app->scene->world->scale);
 	points->PushBack(Vec2f(0.3, 0) * app->scene->world->scale);
-	points->PushBack(Vec2f(0.3, 0.3) * app->scene->world->scale);
-	points->PushBack(Vec2f(0, 0.3) * app->scene->world->scale);
+	points->PushBack(Vec2f(0.3, 0.25) * app->scene->world->scale);
+	points->PushBack(Vec2f(0, 0.25) * app->scene->world->scale);
 
 	Polygon* p = new Polygon(points);
 	box->AddFixture(p);
 
 
+	world->AddBody(box);
 
 	athmo = app->tex->Load("Assets/Textures/Planets/athmo.png");
 	flag = app->tex->Load("Assets/Textures/flag.png");
@@ -148,6 +151,9 @@ bool Scene::PostUpdate()
 	app->render->DrawTexture(athmo, earth->p->position.x - (18 * world->scale), earth->p->position.y - (18 * world->scale), &SDL_Rect({ 0, 0, 200, 200 }), 17.8f);
 	app->render->DrawTexture(earth->img, earth->p->position.x - (earth->r * world->scale), earth->p->position.y - (earth->r * world->scale), &earthAnimation->GetCurrentFrame(), 17.8f);
 	app->render->DrawTexture(moon->img, moon->p->position.x - (moon->r * world->scale), moon->p->position.y - (moon->r * world->scale), &moonAnimation->GetCurrentFrame(), 5.95f);
+	if (app->player->joinedBox)
+		app->render->DrawLine(app->player->r->centerOfMass.x, app->player->r->centerOfMass.y, box->centerOfMass.x, box->centerOfMass.y, 255, 255, 255, 255);
+	app->render->DrawTexture(boxTexture, box->position.x, box->position.y, &SDL_Rect({ 0, 0, 22, 16 }), 1.55f);
 
 	SDL_Rect tmp = { 0, 0, 512, 512 };
 	if(moon->p->gotToMoon)

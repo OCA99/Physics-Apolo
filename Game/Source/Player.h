@@ -42,6 +42,7 @@ public:
 	Rigidbody* r;
 	bool debug = false;
 	bool gotToMoon = false;
+	bool joinedBox = false;
 private:
 
 	SDL_Texture* img;
@@ -59,9 +60,10 @@ private:
 	Vec2f drag;
 
 	//Properties
-	float fuel = 100.0f;
+	float fuel = 200.0f;
 
 	bool finishedFuel = false;
+
 
 };
 #endif // __PLAYER_H__

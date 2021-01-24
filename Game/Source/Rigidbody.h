@@ -18,7 +18,8 @@ public:
 		UNDEFINED,
 		MOON,
 		EARTH,
-		PLAYER
+		PLAYER,
+		BOX
 	};
 
 	Rigidbody(Vec2f _position, float _density, int _scale, float _gravityMin, float _gravityMax)
@@ -247,6 +248,7 @@ public:
 	Vec2f impactVelocity;
 
 	bool win = false;
+	bool joinBox = false;
 
 private:
 	int scale = 1;

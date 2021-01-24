@@ -51,6 +51,7 @@ private:
 
 	SDL_Texture* athmo;
 	SDL_Texture* flag;
+	SDL_Texture* boxTexture;
 
 	SDL_Texture* img;
 	SDL_Texture* bg;

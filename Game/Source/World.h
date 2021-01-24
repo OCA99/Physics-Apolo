@@ -8,7 +8,7 @@
 #define GVAR 0.0005
 #define DRAGC 0.25
 #define DENSITY 1.225
-#define K 0.2
+#define K 50
 
 
 class World
@@ -34,12 +34,12 @@ public:
 		for (int i = 0; i < pairs.Count(); i++)
 		{
 			Pair<Rigidbody*, Rigidbody*>* a = *pairs.At(i);
-			float force = K * a->first->centerOfMass.DistanceTo(a->second->centerOfMass);
+			float force = K * (a->first->centerOfMass.DistanceTo(a->second->centerOfMass) / scale);
 			Vec2f ab = a->first->centerOfMass - a->second->centerOfMass;
 			ab /= ab.Length();
 			ab *= force;
-			a->second->AddForce(ab);
-			a->first->AddForce(Vec2f(-ab.x, -ab.y));
+			a->second->AddForce((ab * a->second->mass));
+			a->first->AddForce((Vec2f(-ab.x, -ab.y) * a->first->mass));
 		}
 	}
 
@@ -75,7 +75,8 @@ public:
 
 	void CreatePair(Rigidbody* a, Rigidbody* b)
 	{
-		pairs.PushBack(new Pair<Rigidbody*, Rigidbody*>(a, b));
+		Pair<Rigidbody*, Rigidbody*>* p = new Pair<Rigidbody*, Rigidbody*>(a, b);
+		pairs.PushBack(p);
 	}
 
 
@@ -207,19 +208,19 @@ private:
 				b->velocity += a->velocity;
 			}
 
-			if (a->type == Rigidbody::Type::PLAYER)
+			if (a->type == Rigidbody::Type::PLAYER && b->type != Rigidbody::Type::BOX)
 			{
 				float vel = (a->velocity - b->velocity).Length() / scale;
-				if (vel > 20)
+				if (vel > 25)
 				{
 					a->dead = true;
 				}
 			}
 
-			if (b->type == Rigidbody::Type::PLAYER)
+			if (b->type == Rigidbody::Type::PLAYER && a->type != Rigidbody::Type::BOX)
 			{
 				float vel = (a->velocity - b->velocity).Length() / scale;
-				if (vel > 20)
+				if (vel > 25)
 				{
 					b->dead = true;
 				}
@@ -247,6 +248,16 @@ private:
 					b->win = true;
 					b->gotToMoon = false;
 				}
+			}
+
+			if (a->type == Rigidbody::Type::PLAYER && b->type == Rigidbody::Type::BOX)
+			{
+				a->joinBox = true;
+			}
+
+			if (b->type == Rigidbody::Type::PLAYER && a->type == Rigidbody::Type::BOX)
+			{
+				b->joinBox = true;
 			}
 
 		}

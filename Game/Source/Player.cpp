@@ -63,7 +63,7 @@ bool Player::Update(float dt)
 {
     if (!r->dead)
         currentAnimation = &stop;
-    if (fuel > 100) fuel = 100;
+    if (fuel > 200) fuel = 200;
     if (fuel < 0)
     {
         finishedFuel = true;
@@ -119,14 +119,10 @@ bool Player::Update(float dt)
     {
         r->win = true;
     }
-    if (r->win)
-    {
-        
-    }
 
     if (debug)
     {
-        fuel = 100;
+        fuel = 200;
         finishedFuel = false;
     }
 
@@ -148,6 +144,12 @@ bool Player::Update(float dt)
         Reset();
     }
 
+    if (r->joinBox && joinedBox == false)
+    {
+        joinedBox = true;
+        app->scene->world->CreatePair(app->player->r, app->scene->box);
+    }
+
     return true;
 }
 
@@ -165,9 +167,8 @@ bool Player::PostUpdate()
     else
         app->render->DrawTexture(img, r->position.x, r->position.y, &currentAnimation->GetCurrentFrame(), 3, 1.0f, ang);
 
-    if (r->win)
+    if (r->win && joinedBox)
     {
-        // LOGICA GANAR
         SDL_Rect tmprec = { 0, 0, 64, 32 };
         app->render->DrawTexture(win, 0 - app->render->camera.x + app->render->camera.w - 920, 0 - app->render->camera.y + 170, &tmprec, 9);
 
@@ -196,7 +197,7 @@ bool Player::PostUpdate()
 
     app->render->DrawTexture(panel, 0 - app->render->camera.x + app->render->camera.w - 235, 0 - app->render->camera.y + 10, &SDL_Rect({ 0, 0, 450, 150 }), 0.5f);
 
-    int fill = fuel / 100 * 188;
+    int fill = fuel / 200 * 188;
 
     if(fill < 50)
         app->render->DrawRectangle(SDL_Rect({ 0 - app->render->camera.x + app->render->camera.w - 235 + 19 , 0 - app->render->camera.y + 10 + 18, fill, 40 }), 191, 63, 63, 255);
@@ -228,10 +229,20 @@ void Player::Reset()
     r->Translate(Vec2f(35.0f, 25.4f) * app->scene->world->scale - r->position);
     r->Rotate(-r->angle);
     r->dead = false;
-    fuel = 100;
+    fuel = 200;
     finishedFuel = false;
     r->gotToMoon = false;
     r->velocity = Vec2f(0, 0);
+    r->joinBox = false;
+    joinedBox = false;
+    if (app->scene->world->pairs.Count() > 0)
+    {
+        Pair<Rigidbody*, Rigidbody*>* p = *app->scene->world->pairs.At(0);
+        delete p;
+        app->scene->world->pairs.Clear();
+    }
+    app->scene->box->Translate(app->scene->moon->p->centerOfMass - app->scene->box->centerOfMass + Vec2f(0, -3) * app->scene->world->scale);
+    app->scene->box->velocity = Vec2f(0, 0);
 }
 
 
