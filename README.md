@@ -19,6 +19,7 @@ The main objective of this game is to travel to the Moon, grab the supply crate 
  - This collisions also work with concave and convex poligons.
  - A whole Rigid Body system developed by us.
  - A world Gravity system, having all the bodies in game follow the Newton's law of universal gravitation.
+ - An impulse force when activating the ship´s thusters.
  - A drag force applied on the atmosphere of the planet.
  - An elastic force used when conjoining the spaceship and the crate on the moon.
  - The spaceship works with a battery and solar panels, so it recharges over time (go green!).
@@ -27,7 +28,7 @@ The main objective of this game is to travel to the Moon, grab the supply crate 
  
 ## Controls
 
- - **W** - Impulse the spaceship forward.
+ - **W** - Activate the main thruster, giving impulse to the ship.
  - **A** - steer right.
  - **D** - steer left.
 
