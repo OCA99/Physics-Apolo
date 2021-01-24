@@ -2,7 +2,7 @@
 
 ## Description
 
-We are 3 second year students from CITM University in Barcelona. We were asked to develop a space game emulating the Apollo Mision: To launch a spaceship from earth, land safely on the moon and return to the earth safely. We decided to give it our little touch so we added some extra features!
+We are three 2nd year students at CITM University in Barcelona studiying videogame development. We were asked to develop a space game emulating the Apollo Mision:The objective is to launch a spaceship from earth, land safely on the moon and return to the earth without any problem. We decided to give it our little touch so we added some extra features!
 
 We used SDL libraries to achieve this.
 
