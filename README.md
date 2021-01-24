@@ -14,14 +14,16 @@ We used SDL libraries to achieve this.
 The main objective of this game is to travel to the Moon, grab the supply crate and arrive back to Earth safe and sound.A friendly reminder, you can not complete your mission if you do not grab that crate, we need it for our secret experiments... Be careful, we have no insurance if you crash!
 
 ## Key Features
-
- - Collision system with both wide and narrow phase.
- - This collisions also work with concave and convex poligons.
- - A whole Rigid Body system developed by us.
+ 
+ - **All 4 Forces:**
  - A world Gravity system, having all the bodies in game follow the Newton's law of universal gravitation.
  - An impulse force when activating the ship´s thusters.
  - A drag force applied on the atmosphere of the planet.
  - An elastic force used when conjoining the spaceship and the crate on the moon.
+ 
+ - Collision system with both wide and narrow phase.
+ - This collisions also work with concave and convex poligons.
+ - A whole Rigid Body system developed by us.
  - The spaceship works with a battery and solar panels, so it recharges over time (go green!).
  - Planet and rocket animations.
  - A beautiful space inspired tune.
@@ -31,6 +33,7 @@ The main objective of this game is to travel to the Moon, grab the supply crate 
  - **W** - Activate the main thruster, giving impulse to the ship.
  - **A** - steer right.
  - **D** - steer left.
+ - **F1** - Debug on/off.
 
 
 ## Developers
