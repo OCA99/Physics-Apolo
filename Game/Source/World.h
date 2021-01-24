@@ -232,6 +232,24 @@ private:
 				//b->AddForceOnPoint(cp, (bn * moment));
 			}
 
+			if (a->type == Rigidbody::Type::MOON || b->type == Rigidbody::Type::MOON)
+			{
+				if (a->type == Rigidbody::Type::PLAYER)
+					a->gotToMoon = true;
+
+				if (b->type == Rigidbody::Type::PLAYER)
+					b->gotToMoon = true;
+			}
+
+			if (a->type == Rigidbody::Type::EARTH || b->type == Rigidbody::Type::EARTH)
+			{
+				if (a->type == Rigidbody::Type::PLAYER && a->gotToMoon)
+					a->gotToMoon = false;
+
+				if (b->type == Rigidbody::Type::PLAYER && b->gotToMoon)
+					b->gotToMoon = false;
+			}
+
 		}
 	}
 

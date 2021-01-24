@@ -36,12 +36,17 @@ public:
 	bool CleanUp();
 
 	Rigidbody* r;
+	bool debug = false;
+	bool gotToMoon = false;
 private:
 
 	SDL_Texture* img;
 	SDL_Texture* power;
+	SDL_Texture* arrow;
 	Animation* currentAnim;
 	Animation powerAnim;
+
+
 
 
 

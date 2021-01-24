@@ -36,8 +36,5 @@ Planet::~Planet()
 
 bool Planet::Start()
 {
-    
-
-
     return true;
 }
