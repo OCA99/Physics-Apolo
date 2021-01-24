@@ -79,10 +79,10 @@ bool Player::Update(float dt)
     {
         debug = !debug;
     }
-    if (r->centerOfMass.DistanceTo(app->scene->earth->p->centerOfMass)/app->scene->world->scale < app->scene->earth->r + 20.f)
+  /*  if (r->centerOfMass.DistanceTo(app->scene->earth->p->centerOfMass)/app->scene->world->scale < app->scene->earth->r + 20.f)
     {
         app->scene->world->DragForce(r);
-    }
+    }*/
 
     return true;
 }
