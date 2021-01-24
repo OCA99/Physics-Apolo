@@ -83,6 +83,7 @@
     </ClInclude>
     <ClInclude Include="Source\Player.h" />
     <ClInclude Include="Source\Planets.h" />
+    <ClInclude Include="Source\Animation.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="External">
