@@ -8,6 +8,8 @@
 #define GVAR 0.0005
 #define DRAGC 0.25
 #define DENSITY 1.225
+#define K 0.2
+
 
 class World
 {
@@ -27,6 +29,20 @@ public:
 		bodies.PushBack(body);
 	}
 
+	void ElasticForce()
+	{
+		for (int i = 0; i < pairs.Count(); i++)
+		{
+			Pair<Rigidbody*, Rigidbody*>* a = *pairs.At(i);
+			float force = K * a->first->centerOfMass.DistanceTo(a->second->centerOfMass);
+			Vec2f ab = a->first->centerOfMass - a->second->centerOfMass;
+			ab /= ab.Length();
+			ab *= force;
+			a->second->AddForce(ab);
+			a->first->AddForce(Vec2f(-ab.x, -ab.y));
+		}
+	}
+
 	void Step(float dt)
 	{
 		for (int i = 0; i < bodies.Count(); i++)
@@ -35,6 +51,7 @@ public:
 			if (r->dead)
 				return;
 		}
+		ElasticForce();
 		CalculateGravity();
 		UpdateBodies(dt);
 		DynArray<Collision*> collisions;
@@ -55,6 +72,15 @@ public:
 
 	DynArray<Rigidbody*> bodies;
 	int scale = 1;
+
+	void CreatePair(Rigidbody* a, Rigidbody* b)
+	{
+		pairs.PushBack(new Pair<Rigidbody*, Rigidbody*>(a, b));
+	}
+
+
+	DynArray<Pair<Rigidbody*,Rigidbody*>*> pairs;
+
 private:
 
 	void UpdateBodies(float dt)

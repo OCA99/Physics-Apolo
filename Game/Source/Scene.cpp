@@ -49,6 +49,17 @@ bool Scene::Start()
 	earth->p->type = Rigidbody::Type::EARTH;
 	moon = new Planet(Vec2f(60.0f, 35.0f), 3, 50, 10000, "Assets/Textures/Planets/Baren.png", 3, 20);
 	moon->p->type = Rigidbody::Type::MOON;
+	box = new Rigidbody(Vec2f(35.0f,24.0f), 1.0f, world->scale, 0.0f, 0.0f);
+	DynArray<Vec2f>* points = new DynArray<Vec2f>();
+	points->PushBack(Vec2f(0, 0) * app->scene->world->scale);
+	points->PushBack(Vec2f(0.3, 0) * app->scene->world->scale);
+	points->PushBack(Vec2f(0.3, 0.3) * app->scene->world->scale);
+	points->PushBack(Vec2f(0, 0.3) * app->scene->world->scale);
+
+	Polygon* p = new Polygon(points);
+	box->AddFixture(p);
+
+
 
 	athmo = app->tex->Load("Assets/Textures/Planets/athmo.png");
 	flag = app->tex->Load("Assets/Textures/flag.png");

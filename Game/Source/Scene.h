@@ -42,6 +42,8 @@ public:
 	Planet* moon;
 	Planet* earth;
 
+	Rigidbody* box;
+
 private:
 
 	Animation* earthAnimation;
