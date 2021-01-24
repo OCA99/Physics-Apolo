@@ -243,6 +243,8 @@ public:
 	DynArray<Shape*> fixtures;
 
 	bool gotToMoon = false;
+	bool dead = false;
+	Vec2f impactVelocity;
 
 private:
 	int scale = 1;

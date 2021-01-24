@@ -35,6 +35,10 @@ public:
 	// Called before quitting
 	bool CleanUp();
 
+	void Die();
+
+	void Reset();
+
 	Rigidbody* r;
 	bool debug = false;
 	bool gotToMoon = false;
@@ -43,12 +47,20 @@ private:
 	SDL_Texture* img;
 	SDL_Texture* arrow;
 	SDL_Texture* panel;
+	SDL_Texture* explosion;
 
-	SDL_Rect rec;
+	Animation* currentAnimation;
+
+	Animation fly;
+	Animation stop;
+	Animation explode;
+
 	Vec2f drag;
 
 	//Properties
 	float fuel = 100.0f;
+
+	bool finishedFuel = false;
 
 };
 #endif // __PLAYER_H__
