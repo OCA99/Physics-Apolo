@@ -6,6 +6,8 @@
 #include "Collision.h"
 
 #define GVAR 0.0005
+#define DRAGC 0.1
+#define DENSITY 0
 
 class World
 {
@@ -253,6 +255,22 @@ private:
 					b->AddForce(ba);
 
 			}
+		}
+	}
+
+	void DragForce()
+	{
+		for (int i = 0; i < bodies.Count(); i++)
+		{
+			Rigidbody* a = *bodies.At(i);
+
+			float velModule = sqrt((a->velocity.x * a->velocity.x) + (a->velocity.y + a->velocity.y));
+			float force = 0.5*(DENSITY * velModule * DRAGC * 1);
+
+			Vec2f aDrag = (a->velocity / a->velocity.Length())* (-force);
+
+			a->AddForce(aDrag);
+
 		}
 	}
 };
