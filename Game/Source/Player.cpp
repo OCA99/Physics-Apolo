@@ -30,6 +30,7 @@ bool Player::Start()
     arrow = app->tex->Load("Assets/Textures/arrow.png");
     panel = app->tex->Load("Assets/Textures/panel.png");
     explosion = app->tex->Load("Assets/Textures/explosion.png");
+    win = app->tex->Load("Assets/Textures/winPanel.png");
 
     //BODY
     r = new Rigidbody(Vec2f(35.0f, 25.4f) * app->scene->world->scale, 0.000001f, app->scene->world->scale, 0, 0);
@@ -102,6 +103,7 @@ bool Player::Update(float dt)
         if (app->input->GetKey(SDL_SCANCODE_R) == KEY_DOWN && !r->dead)
         {
             r->dead = true;
+            r->win = false;
             Die();
         }
 
@@ -112,6 +114,14 @@ bool Player::Update(float dt)
     if (app->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
     {
         debug = !debug;
+    }
+    if (app->input->GetKey(SDL_SCANCODE_T) == KEY_DOWN)
+    {
+        r->win = true;
+    }
+    if (r->win)
+    {
+        
     }
 
     if (debug)
@@ -138,12 +148,6 @@ bool Player::Update(float dt)
         Reset();
     }
 
-    if (r->win)
-    {
-        // LOGICA GANAR
-        r->win = false;
-    }
-
     return true;
 }
 
@@ -161,7 +165,13 @@ bool Player::PostUpdate()
     else
         app->render->DrawTexture(img, r->position.x, r->position.y, &currentAnimation->GetCurrentFrame(), 3, 1.0f, ang);
 
+    if (r->win)
+    {
+        // LOGICA GANAR
+        SDL_Rect tmprec = { 0, 0, 64, 32 };
+        app->render->DrawTexture(win, 0 - app->render->camera.x + app->render->camera.w - 920, 0 - app->render->camera.y + 170, &tmprec, 9);
 
+    }
 
     float angle = 0;
 
@@ -187,8 +197,16 @@ bool Player::PostUpdate()
     app->render->DrawTexture(panel, 0 - app->render->camera.x + app->render->camera.w - 235, 0 - app->render->camera.y + 10, &SDL_Rect({ 0, 0, 450, 150 }), 0.5f);
 
     int fill = fuel / 100 * 188;
+    LOG("%d", fill);
 
-    app->render->DrawRectangle(SDL_Rect({ 0 - app->render->camera.x + app->render->camera.w - 235 + 19 , 0 - app->render->camera.y + 10 + 18, fill, 40 }), 237, 138, 0, 255);
+    if(fill < 50)
+        app->render->DrawRectangle(SDL_Rect({ 0 - app->render->camera.x + app->render->camera.w - 235 + 19 , 0 - app->render->camera.y + 10 + 18, fill, 40 }), 191, 63, 63, 255);
+    else if (fill < 100)
+        app->render->DrawRectangle(SDL_Rect({ 0 - app->render->camera.x + app->render->camera.w - 235 + 19 , 0 - app->render->camera.y + 10 + 18, fill, 40 }), 237, 138, 0, 255);
+    else if(fill < 138)
+        app->render->DrawRectangle(SDL_Rect({ 0 - app->render->camera.x + app->render->camera.w - 235 + 19 , 0 - app->render->camera.y + 10 + 18, fill, 40 }), 255, 255, 107, 255);
+    else
+        app->render->DrawRectangle(SDL_Rect({ 0 - app->render->camera.x + app->render->camera.w - 235 + 19 , 0 - app->render->camera.y + 10 + 18, fill, 40 }), 127, 191, 63, 255);
 
     return true;
 }

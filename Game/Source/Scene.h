@@ -53,6 +53,7 @@ private:
 	SDL_Texture* bg;
 	Rigidbody* r;
 	Rigidbody* r2;
+
 };
 
 #endif // __SCENE_H__

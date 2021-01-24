@@ -47,6 +47,7 @@ private:
 	SDL_Texture* img;
 	SDL_Texture* arrow;
 	SDL_Texture* panel;
+	SDL_Texture* win;
 	SDL_Texture* explosion;
 
 	Animation* currentAnimation;

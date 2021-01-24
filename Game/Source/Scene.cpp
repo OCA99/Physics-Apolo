@@ -42,6 +42,7 @@ bool Scene::Start()
 	bg = app->tex->Load("Assets/Textures/backgroundBig.png");
 
 	app->audio->PlayMusic("Assets/Audio/Music/secret-weapon.wav", 1.0f);
+	
 
 	earth = new Planet(Vec2f(35.0f, 35.0f), 9, 50, 10000, "Assets/Textures/Planets/Terran.png", 9, 80);
 	earth->p->stat = true;
