@@ -2,29 +2,44 @@
 
 ## Description
 
-We are 3 second year students from CITM University in Barcelona. We have been asked to develop a space game emulating the Apollo Mision: To launch a spaceship from earth, land safely on the moon and also return to the earth safely.
+We are 3 second year students from CITM University in Barcelona. We were asked to develop a space game emulating the Apollo Mision: To launch a spaceship from earth, land safely on the moon and return to the earth safely. We decided to give it our little touch so we added some extra features!
 
 We used SDL libraries to achieve this.
 
 ## Screenshot
 ![](Screenshots/portrait.png)
 
+## Objective
+
+The main objective of this game is to travel to the Moon, grab the supply crate (optional) and arrive back to Earth safe and sound. Be careful, we have no insurance if you crash!
+
 ## Key Features
 
- - {Feature01}
- - {Feature02}
- - {Feature03}
- - {Feature04}
+ - Collision system with both wide and narrow phase.
+ - This collisions also work with concave and convex poligons.
+ - A world Gravity system, having all the bodies in game follow the Newton's law of universal gravitation.
+ - A drag force applied on the atmosphere of the planet.
+ - An elastic force used when conjoining the spaceship and the crate on the moon.
+ - The spaceship works with a battery and solar panels, so it recharges over time (go green!).
+ - Planet and rocket animations.
+ - A beautiful space inspired tune.
  
 ## Controls
 
- - ** W ** M
+ - **W** - Impulse the spaceship forward.
+ - **A** - steer right.
+ - **D** - steer left.
+
 
 ## Developers
 
- - Aitor Álvarez - Developer, musician.
- - Oscar Cuatrecasas - Developer, tester.
- - Telmo Beroiz - Developer, design.
+ - [Aitor Álvarez](https://github.com/AitorAlvarez17) - Developer, tester.
+ - [Oscar Cuatrecasas](https://github.com/OCA99)- Developer, tester.
+ - [Telmo Beroiz](https://github.com/Telmiyo) - Developer, design.
+ 
+## [Github Repository](https://github.com/OCA99/Physics-Apolo)
+
+
 
 ## License
 
