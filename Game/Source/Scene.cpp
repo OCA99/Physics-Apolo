@@ -50,6 +50,13 @@ bool Scene::Start()
 	//float iny = sqrt(GVAR * earth->p->mass / (earth->p->centerOfMass.DistanceTo(moon->p->centerOfMass)/world->scale));
 	moon->p->velocity = Vec2f(0, 6000);
 
+	earthAnimation = new Animation();
+	earthAnimation->GenerateAnimation(SDL_Rect({ 0, 0, 100, 100 }), 0, 49, 0, 0);
+	earthAnimation->speed = 0.1f;
+
+	moonAnimation = new Animation();
+	moonAnimation->GenerateAnimation(SDL_Rect({ 0, 0, 100, 100 }), 0, 49, 0, 0);
+	moonAnimation->speed = 0.1f;
 
 	return true;
 }
@@ -77,6 +84,9 @@ bool Scene::PostUpdate()
 
 	if(app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
 		ret = false;
+
+	earthAnimation->Update();
+	moonAnimation->Update();
 
 	for (int i = 0; i < world->bodies.Count(); i++)
 	{
@@ -114,8 +124,8 @@ bool Scene::PostUpdate()
 		app->render->DrawLine(app->player->r->centerOfMass.x, app->player->r->centerOfMass.y, moon->p->centerOfMass.x, moon->p->centerOfMass.y, 0, 0, 255, 255);
 	}
 
-	app->render->DrawTexture(earth->img, earth->p->position.x - (earth->r * world->scale), earth->p->position.y - (earth->r * world->scale), &SDL_Rect({ 0, 0, 48, 48 }), 37.5f);
-	app->render->DrawTexture(moon->img, moon->p->position.x - (moon->r * world->scale), moon->p->position.y - (moon->r * world->scale), &SDL_Rect({ 0, 0, 48, 48 }), 12.5f);
+	app->render->DrawTexture(earth->img, earth->p->position.x - (earth->r * world->scale), earth->p->position.y - (earth->r * world->scale), &earthAnimation->GetCurrentFrame(), 17.8f);
+	app->render->DrawTexture(moon->img, moon->p->position.x - (moon->r * world->scale), moon->p->position.y - (moon->r * world->scale), &moonAnimation->GetCurrentFrame(), 5.95f);
 
 	//app->render->DrawLine(app->player->r->centerOfMass.x, app->player->r->centerOfMass.y, moon->p->centerOfMass.x, moon->p->centerOfMass.y, 0, 0, 255, 255);
 

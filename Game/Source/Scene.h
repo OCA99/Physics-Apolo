@@ -4,6 +4,7 @@
 #include "Module.h"
 #include "World.h"
 #include "Planets.h"
+#include "Animation.h"
 
 struct SDL_Texture;
 
@@ -42,6 +43,10 @@ public:
 	Planet* earth;
 
 private:
+
+	Animation* earthAnimation;
+	Animation* moonAnimation;
+
 	SDL_Texture* img;
 	SDL_Texture* bg;
 	Rigidbody* r;
