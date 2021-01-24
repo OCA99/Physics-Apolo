@@ -11,7 +11,7 @@ We used SDL libraries to achieve this.
 
 ## Objective
 
-The main objective of this game is to travel to the Moon, grab the supply crate (optional) and arrive back to Earth safe and sound. Be careful, we have no insurance if you crash!
+The main objective of this game is to travel to the Moon, grab the supply crate and arrive back to Earth safe and sound.A friendly reminder, you can not complete your mission if you do not grab that crate, we need it for our secret experiments... Be careful, we have no insurance if you crash!
 
 ## Key Features
 
@@ -51,3 +51,25 @@ This project is licensed under an unmodified MIT license, which is an OSI-certif
 [BULLET License](https://opensource.org/licenses/Zlib)
 
 [OPENGL License](https://www.opengl.org/about/#11)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Don tell anybody, but the crate is full of Moon rock. We use it to hold our papers on the offices, the most important task, so we sent our best pilot for the job.
