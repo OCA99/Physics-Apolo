@@ -2,7 +2,7 @@
 
 ## Description
 
-We are three 2nd year students at CITM University in Barcelona studiying videogame development. We were asked to develop a space game emulating the Apollo Mision:The objective is to launch a spaceship from earth, land safely on the moon and return to the earth without any problem. We decided to give it our little touch so we added some extra features!
+We are three 2nd year students at CITM University in Barcelona studiying videogame development. We were asked to develop a space game emulating the Apollo Mision: The objective is to launch a spaceship from earth, land safely on the moon and return to the earth without any problem. We decided to give it our little touch so we added some extra features!
 
 We used SDL libraries to achieve this.
 
@@ -11,7 +11,7 @@ We used SDL libraries to achieve this.
 
 ## Objective
 
-The main objective of this game is to travel to the Moon, grab the supply crate and arrive back to Earth safe and sound.A friendly reminder, you can not complete your mission if you do not grab that crate, we need it for our secret experiments... Be careful, we have no insurance if you crash!
+The main objective of this game is to travel to the Moon, grab the supply crate and arrive back to Earth safe and sound. A friendly reminder, you can not complete your mission if you do not grab that crate, we need it for our secret experiments... Be careful, we have no insurance if you crash!
 
 ## Main Features
  
@@ -21,9 +21,9 @@ The main objective of this game is to travel to the Moon, grab the supply crate 
  - A drag force applied on the atmosphere of the planet.
  - An elastic force used when conjoining the spaceship and the crate on the moon.
  - **Key Features:**
- - Collision system with both wide and narrow phase.
+ - Collision system optimized by using both a wide and narrow phase.
  - This collisions also work with concave and convex poligons.
- - A whole Rigid Body system developed by us.
+ - A whole Rigidbody system developed by us.
  - The spaceship works with a battery and solar panels, so it recharges over time (go green!).
  - Planet and rocket animations.
  - A beautiful space inspired tune.
@@ -52,9 +52,4 @@ This project is licensed under an unmodified MIT license, which is an OSI-certif
 
 [SDL License](https://www.libsdl.org/license.php)
 
-[BULLET License](https://opensource.org/licenses/Zlib)
-
-[OPENGL License](https://www.opengl.org/about/#11)
-
-
-Don tell anybody, but the crate is full of szechuan sauce. We selected the best pilot for the job of course. 
+Don tell anybody, but the crate is full of Szechuan sauce. We selected the best pilot for the job of course. 
