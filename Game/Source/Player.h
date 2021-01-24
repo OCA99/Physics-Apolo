@@ -3,8 +3,10 @@
 
 #include "Module.h"
 #include "World.h"
+#include "Animation.h"
 
 struct SDL_Texture;
+
 
 class Player : public Module
 {
@@ -37,6 +39,10 @@ public:
 private:
 
 	SDL_Texture* img;
+	SDL_Texture* power;
+	Animation* currentAnim;
+	Animation powerAnim;
+
 
 
 	//Properties
