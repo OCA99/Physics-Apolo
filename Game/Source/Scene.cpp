@@ -41,7 +41,7 @@ bool Scene::Start()
 {
 	bg = app->tex->Load("Assets/Textures/backgroundBig.png");
 
-	app->audio->PlayMusic("Assets/Audio/Music/secret-weapon.wav", 1.0f);
+	app->audio->PlayMusic("Assets/Audio/Music/theme.ogg", 1.0f);
 	
 
 	earth = new Planet(Vec2f(35.0f, 35.0f), 9, 50, 10000, "Assets/Textures/Planets/Terran.png", 9, 80);
@@ -51,7 +51,8 @@ bool Scene::Start()
 	moon->p->type = Rigidbody::Type::MOON;
 
 	athmo = app->tex->Load("Assets/Textures/Planets/athmo.png");
-
+	flag = app->tex->Load("Assets/Textures/flag.png");
+	
 	//float iny = sqrt(GVAR * earth->p->mass / (earth->p->centerOfMass.DistanceTo(moon->p->centerOfMass)/world->scale));
 	moon->p->velocity = Vec2f(0, 6000);
 
@@ -89,6 +90,9 @@ bool Scene::PostUpdate()
 
 	if(app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
 		ret = false;
+
+	if (app->input->GetKey(SDL_SCANCODE_M) == KEY_DOWN)
+		moon->p->gotToMoon = true;
 
 	earthAnimation->Update();
 	moonAnimation->Update();
@@ -133,6 +137,10 @@ bool Scene::PostUpdate()
 	app->render->DrawTexture(athmo, earth->p->position.x - (18 * world->scale), earth->p->position.y - (18 * world->scale), &SDL_Rect({ 0, 0, 200, 200 }), 17.8f);
 	app->render->DrawTexture(earth->img, earth->p->position.x - (earth->r * world->scale), earth->p->position.y - (earth->r * world->scale), &earthAnimation->GetCurrentFrame(), 17.8f);
 	app->render->DrawTexture(moon->img, moon->p->position.x - (moon->r * world->scale), moon->p->position.y - (moon->r * world->scale), &moonAnimation->GetCurrentFrame(), 5.95f);
+
+	SDL_Rect tmp = { 0, 0, 512, 512 };
+	if(moon->p->gotToMoon)
+		app->render->DrawTexture(flag, moon->p->position.x - (moon->r * world->scale) + 100, moon->p->position.y - (moon->r * world->scale) + 50, &tmp, 0.2f);
 
 	//app->render->DrawLine(app->player->r->centerOfMass.x, app->player->r->centerOfMass.y, moon->p->centerOfMass.x, moon->p->centerOfMass.y, 0, 0, 255, 255);
 

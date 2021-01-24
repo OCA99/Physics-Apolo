@@ -197,7 +197,6 @@ bool Player::PostUpdate()
     app->render->DrawTexture(panel, 0 - app->render->camera.x + app->render->camera.w - 235, 0 - app->render->camera.y + 10, &SDL_Rect({ 0, 0, 450, 150 }), 0.5f);
 
     int fill = fuel / 100 * 188;
-    LOG("%d", fill);
 
     if(fill < 50)
         app->render->DrawRectangle(SDL_Rect({ 0 - app->render->camera.x + app->render->camera.w - 235 + 19 , 0 - app->render->camera.y + 10 + 18, fill, 40 }), 191, 63, 63, 255);

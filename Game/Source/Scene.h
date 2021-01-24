@@ -48,6 +48,7 @@ private:
 	Animation* moonAnimation;
 
 	SDL_Texture* athmo;
+	SDL_Texture* flag;
 
 	SDL_Texture* img;
 	SDL_Texture* bg;
