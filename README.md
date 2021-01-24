@@ -18,7 +18,7 @@ We used SDL libraries to achieve this.
  
 ## Controls
 
- - **WAD:** Move de Spaceship
+ - ** W ** M
 
 ## Developers
 
