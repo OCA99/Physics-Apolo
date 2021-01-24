@@ -42,16 +42,11 @@ private:
 
 	SDL_Texture* img;
 	SDL_Texture* arrow;
-
+	SDL_Rect rec;
 	Vec2f drag;
 
-	SDL_Rect rec;
-
-
-
-
 	//Properties
-
+	float fuel = 100.0f;
 
 };
 #endif // __PLAYER_H__

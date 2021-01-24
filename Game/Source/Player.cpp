@@ -55,13 +55,20 @@ bool Player::PreUpdate()
 bool Player::Update(float dt)
 {
     rec = { 17,0,13,26 };
+    if (fuel > 100) fuel = 100;
+    if (fuel < 0) fuel = 0;
+   
+    LOG("%2f", fuel);
+
     if (app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT)
     {
         Vec2f dir = Vec2f(0, -0.00004f);
         dir = Vec2f(dir.x * cos(r->angle) - dir.y * sin(r->angle), dir.x * sin(r->angle) + dir.y * cos(r->angle));
         r->AddForce(dir);
         rec = { 0,0,13,26 };
+        fuel -= 0.2f;
     }
+    else fuel += 0.3f;
     if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
     {
         r->Rotate(0.1f);
