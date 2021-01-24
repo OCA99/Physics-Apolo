@@ -246,6 +246,8 @@ public:
 	bool dead = false;
 	Vec2f impactVelocity;
 
+	bool win = false;
+
 private:
 	int scale = 1;
 };

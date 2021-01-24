@@ -138,6 +138,12 @@ bool Player::Update(float dt)
         Reset();
     }
 
+    if (r->win)
+    {
+        // LOGICA GANAR
+        r->win = false;
+    }
+
     return true;
 }
 

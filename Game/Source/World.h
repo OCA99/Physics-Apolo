@@ -184,7 +184,7 @@ private:
 			if (a->type == Rigidbody::Type::PLAYER)
 			{
 				float vel = (a->velocity - b->velocity).Length() / scale;
-				if (vel > 10)
+				if (vel > 20)
 				{
 					a->dead = true;
 				}
@@ -193,7 +193,7 @@ private:
 			if (b->type == Rigidbody::Type::PLAYER)
 			{
 				float vel = (a->velocity - b->velocity).Length() / scale;
-				if (vel > 10)
+				if (vel > 20)
 				{
 					b->dead = true;
 				}
@@ -211,10 +211,16 @@ private:
 			if (a->type == Rigidbody::Type::EARTH || b->type == Rigidbody::Type::EARTH)
 			{
 				if (a->type == Rigidbody::Type::PLAYER && a->gotToMoon)
+				{
+					b->win = true;
 					a->gotToMoon = false;
+				}
 
 				if (b->type == Rigidbody::Type::PLAYER && b->gotToMoon)
+				{
+					b->win = true;
 					b->gotToMoon = false;
+				}
 			}
 
 		}
