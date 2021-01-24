@@ -28,6 +28,7 @@ bool Player::Start()
 {
     img = app->tex->Load("Assets/Textures/player.png");
     arrow = app->tex->Load("Assets/Textures/arrow.png");
+    panel = app->tex->Load("Assets/Textures/panel.png");
 
     //BODY
     r = new Rigidbody(Vec2f(44.0f, 35.0f) * app->scene->world->scale, 0.000001f, app->scene->world->scale, 0, 0);
@@ -127,6 +128,14 @@ bool Player::PostUpdate()
         app->render->DrawLine(r->centerOfMass.x, r->centerOfMass.y, app->scene->earth->p->centerOfMass.x, app->scene->earth->p->centerOfMass.y, 255, 0, 0, 255);
         app->render->DrawLine(r->centerOfMass.x, r->centerOfMass.y, r->centerOfMass.x + drag.x, r->centerOfMass.y + drag.y, 0, 255, 0, 255);
     }
+
+    app->render->DrawTexture(panel, 0 - app->render->camera.x + app->render->camera.w - 235, 0 - app->render->camera.y + 10, &SDL_Rect({ 0, 0, 450, 150 }), 0.5f);
+
+    int fuel = 100;
+
+    int fill = fuel / 100 * 188;
+
+    app->render->DrawRectangle(SDL_Rect({ 0 - app->render->camera.x + app->render->camera.w - 235 + 19 , 0 - app->render->camera.y + 10 + 18, fill, 40 }), 237, 138, 0, 255);
 
     return true;
 }

@@ -42,6 +42,8 @@ private:
 
 	SDL_Texture* img;
 	SDL_Texture* arrow;
+	SDL_Texture* panel;
+
 	SDL_Rect rec;
 	Vec2f drag;
 
