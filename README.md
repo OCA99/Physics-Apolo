@@ -53,23 +53,4 @@ This project is licensed under an unmodified MIT license, which is an OSI-certif
 [OPENGL License](https://www.opengl.org/about/#11)
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Don tell anybody, but the crate is full of Moon rock. We use it to hold our papers on the offices, the most important task, so we sent our best pilot for the job.
+Don tell anybody, but the crate is full of szechuan sauce. We selected the best pilot for the job of course. 
