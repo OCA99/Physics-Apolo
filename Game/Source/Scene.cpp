@@ -156,7 +156,7 @@ bool Scene::PostUpdate()
 	app->render->DrawTexture(boxTexture, box->position.x, box->position.y, &SDL_Rect({ 0, 0, 22, 16 }), 1.55f);
 
 	SDL_Rect tmp = { 0, 0, 512, 512 };
-	if(moon->p->gotToMoon)
+	if (app->player->r->gotToMoon)
 		app->render->DrawTexture(flag, moon->p->position.x - (moon->r * world->scale) + 100, moon->p->position.y - (moon->r * world->scale) + 50, &tmp, 0.2f);
 
 	//app->render->DrawLine(app->player->r->centerOfMass.x, app->player->r->centerOfMass.y, moon->p->centerOfMass.x, moon->p->centerOfMass.y, 0, 0, 255, 255);
