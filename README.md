@@ -17,6 +17,7 @@ The main objective of this game is to travel to the Moon, grab the supply crate 
 
  - Collision system with both wide and narrow phase.
  - This collisions also work with concave and convex poligons.
+ - A whole Rigid Body system developed by us.
  - A world Gravity system, having all the bodies in game follow the Newton's law of universal gravitation.
  - A drag force applied on the atmosphere of the planet.
  - An elastic force used when conjoining the spaceship and the crate on the moon.
